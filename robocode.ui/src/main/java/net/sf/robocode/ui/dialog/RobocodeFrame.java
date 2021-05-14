@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.ui.dialog;
 
@@ -31,6 +31,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class RobocodeFrame extends JFrame {
 	private final static int MAX_TPS_SLIDER_VALUE = 61;
 
 	private final static int UPDATE_TITLE_INTERVAL = 500; // milliseconds
-	private final static String INSTALL_URL = "http://robocode.sourceforge.net/installer";
+	private final static String INSTALL_URL = "https://robocode.sourceforge.io/installer";
 
 	private static final Cursor BUSY_CURSOR = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
 	private static final Cursor DEFAULT_CURSOR = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
@@ -533,6 +534,14 @@ public class RobocodeFrame extends JFrame {
 	 * Initialize the class.
 	 */
 	private void initialize() {
+		try {
+			Class<?> util = Class.forName("com.apple.eawt.FullScreenUtilities");
+			Method method = util.getMethod("setWindowCanFullScreen", Window.class, Boolean.TYPE);
+			method.invoke(util, this, true);
+		} catch (Exception ignore) {
+			// no full screen support
+		}
+
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setTitle("Robocode");
 		setIconImage(ImageUtil.getImage("/net/sf/robocode/ui/icons/robocode-icon.png"));
@@ -849,7 +858,7 @@ public class RobocodeFrame extends JFrame {
 					final boolean attach = index < RobotDialogManager.MAX_PRE_ATTACHED;
 					final RobotButton button = net.sf.robocode.core.Container.createComponent(RobotButton.class);
 
-					button.setup(robot.getName(), maxEnergy, index, robot.getContestantIndex(), attach);
+					button.setup(robot.getName(), maxEnergy, index, robot.getContestantIndex(), robot.getTeamIndex(), attach);
 					button.setText(robot.getShortName());
 					addRobotButton(button);
 				}

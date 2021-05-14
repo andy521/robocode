@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.battle.peer;
 
@@ -17,6 +17,7 @@ import net.sf.robocode.host.events.EventManager;
 import net.sf.robocode.host.events.EventQueue;
 import net.sf.robocode.host.proxies.IHostingRobotProxy;
 import net.sf.robocode.io.Logger;
+import net.sf.robocode.io.RobocodeProperties;
 import net.sf.robocode.peer.*;
 import net.sf.robocode.repository.IRobotItem;
 import net.sf.robocode.security.HiddenAccess;
@@ -30,6 +31,9 @@ import robocode.control.snapshot.RobotState;
 import robocode.exception.AbortedException;
 import robocode.exception.DeathException;
 import robocode.exception.WinException;
+import robocode.robotinterfaces.IBasicRobot;
+import robocode.util.Utils;
+
 import static robocode.util.Utils.*;
 
 import java.awt.geom.Arc2D;
@@ -77,8 +81,8 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 
 	private Battle battle;
 	private RobotStatistics statistics;
-	private final TeamPeer teamPeer;
 	private final RobotSpecification robotSpecification;
+	private final TeamPeer teamPeer;
 
 	private IHostingRobotProxy robotProxy;
 	private AtomicReference<RobotStatus> status = new AtomicReference<RobotStatus>();
@@ -138,7 +142,7 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 	private final BoundingRectangle boundingBox;
 	private final RbSerializer rbSerializer;
 
-	public RobotPeer(Battle battle, IHostManager hostManager, RobotSpecification robotSpecification, int duplicate, TeamPeer team, int robotIndex) {
+	public RobotPeer(Battle battle, IHostManager hostManager, RobotSpecification robotSpecification, TeamPeer team, int robotIndex) {
 		super();
 
 		this.battle = battle;
@@ -172,9 +176,11 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 			teamIndex = team.getTeamIndex();
 		}
 
-		this.statics = new RobotStatics(robotSpecification, duplicate, isTeamLeader, battleRules, teamName, teamMembers,
+		this.statics = new RobotStatics(robotSpecification, isTeamLeader, battleRules, teamName, teamMembers,
 				robotIndex, teamIndex);
 		this.statistics = new RobotStatistics(this, battle.getRobotsCount());
+
+		this.isPaintEnabled = this.statics.isPaintRobot() && RobocodeProperties.isPaintingOn();
 
 		this.robotProxy = (IHostingRobotProxy) hostManager.createRobotProxy(robotSpecification, statics, this);
 	}
@@ -266,12 +272,12 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 		return statics.getRobotIndex();
 	}
 
-	public int getTeamIndex() {
-		return statics.getTeamIndex();
+	public IBasicRobot getRobotObject() {
+		return robotProxy.getRobotObject();
 	}
 
-	public int getContestantIndex() {
-		return getTeamIndex() >= 0 ? getTeamIndex() : getRobotIndex();
+	public int getTeamIndex() {
+		return statics.getTeamIndex();
 	}
 
 	// -------------------
@@ -760,8 +766,10 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 		readoutTeamMessages();
 		readoutBullets();
 
-		battleText.setLength(0);
-		proxyText.setLength(0);
+		synchronized (proxyText) { // Bug fix #387
+			battleText.setLength(0);
+			proxyText.setLength(0);
+		}
 
 		// Prepare new execution commands, but copy the colors from the last commands.
 		// Bugfix [2628217] - Robot Colors don't stick between rounds.
@@ -1059,6 +1067,12 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 		}
 		if (inCollision) {
 			setState(RobotState.HIT_ROBOT);
+		}
+	}
+
+	public void updateAfterCollision() {
+		if (state == RobotState.HIT_ROBOT) {
+			updateBoundingBox();
 		}
 	}
 
@@ -1402,7 +1416,7 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 	 * Updates the robots movement.
 	 *
 	 * This is Nat Pavasants method described here:
-	 *   http://robowiki.net/wiki/User:Positive/Optimal_Velocity#Nat.27s_updateMovement
+	 *   https://robowiki.net/wiki/User:Positive/Optimal_Velocity#Nat.27s_updateMovement
 	 */
 	private void updateMovement() {
 		double distance = currentCommands.getDistanceRemaining();
@@ -1458,7 +1472,7 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 	 * @return the new velocity based on the current velocity and distance to move
 	 * 
 	 * This is Patrick Cupka (aka Voidious), Julian Kent (aka Skilgannon), and Positive's method described here:
-	 *   http://robowiki.net/wiki/User:Voidious/Optimal_Velocity#Hijack_2
+	 *   https://robowiki.net/wiki/User:Voidious/Optimal_Velocity#Hijack_2
 	 */
 	private double getNewVelocity(double velocity, double distance) {
 		if (distance < 0) {
@@ -1700,10 +1714,13 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 		events = null;
 		teamMessages = null;
 		bulletUpdates = null;
-		battleText.setLength(0);
-		proxyText.setLength(0);
 		statics = null;
 		battleRules = null;
+
+		synchronized (proxyText) { // Bug fix #387
+			battleText.setLength(0);
+			proxyText.setLength(0);
+		}
 	}
 
 	public Object getGraphicsCalls() {
@@ -1758,7 +1775,9 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 
 	@Override
 	public String toString() {
-		return statics.getShortName() + "(" + (int) energy + ") X" + (int) x + " Y" + (int) y + " " + state.toString()
+		return statics.getShortName() + "(" + (int) energy + ") X" + (int) x + " Y" + (int) y
+				+ " ~" + Utils.angleToApproximateDirection(bodyHeading)
+				+ " " + state.toString()
 				+ (isSleeping() ? " sleeping " : "") + (isRunning() ? " running" : "") + (isHalt() ? " halted" : "");
 	}
 }

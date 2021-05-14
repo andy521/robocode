@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.test.robots;
 
@@ -12,6 +12,7 @@ import java.io.File;
 
 import net.sf.robocode.test.helpers.RobocodeTestBed;
 import org.junit.Assert;
+import org.junit.Test;
 import robocode.control.events.TurnEndedEvent;
 
 
@@ -25,12 +26,17 @@ public class TestFileWriteSize extends RobocodeTestBed {
 	boolean messagedDataFile;
 	boolean messageQuotaReached;
 	boolean robotTerminated;
-	
-	@Override
-	public String getRobotNames() {
-		return "tested.robots.FileWriteSize,sample.Target";
+
+	@Test
+	public void run() {
+		super.run();
 	}
-	
+
+	@Override
+	public String getRobotName() {
+		return "tested.robots.FileWriteSize";
+	}
+
 	@Override
 	public void onTurnEnded(TurnEndedEvent event) {
 		super.onTurnEnded(event);
@@ -45,10 +51,10 @@ public class TestFileWriteSize extends RobocodeTestBed {
 		if (out.contains("Data quota: 200000\n")) {
 			messagedDataQuota = true;
 		}
-		if (out.contains("Data directory: " + path + "/target/classes/tested/robots/FileWriteSize.data")) {
+		if (out.contains("Data directory: " + path + "/tested/robots/FileWriteSize.data")) {
 			messagedDataDirectory = true;	
 		}
-		if (out.contains("Data file: " + path + "/target/classes/tested/robots/FileWriteSize.data/test")) {
+		if (out.contains("Data file: " + path + "/tested/robots/FileWriteSize.data/test")) {
 			messagedDataFile = true;	
 		}
 		if (out.contains("You have reached your filesystem quota of: 200000 bytes")) {

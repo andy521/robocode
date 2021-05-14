@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -16,22 +16,22 @@ import java.awt.*;
 
 /**
  * The basic robot class that you will extend to create your own robots.
- * <p/>
  * <p>Please note the following standards will be used:
  * <br> heading - absolute angle in degrees with 0 facing up the screen,
- * positive clockwise. 0 <= heading < 360.
+ * positive clockwise. 0 &lt;= heading &lt; 360.
  * <br> bearing - relative angle to some object from your robot's heading,
- * positive clockwise. -180 < bearing <= 180
+ * positive clockwise. -180 &lt; bearing &lt;= 180
  * <br> All coordinates are expressed as (x,y).
  * <br> All coordinates are positive.
  * <br> The origin (0,0) is at the bottom left of the screen.
  * <br> Positive x is right.
  * <br> Positive y is up.
+ * </p>
  *
- * @see <a target="_top" href="http://robocode.sourceforge.net">
+ * @see <a target="_top" href="https://robocode.sourceforge.io">
  *      robocode.sourceforge.net</a>
- * @see <a href="http://robocode.sourceforge.net/myfirstrobot/MyFirstRobot.html">
- *      Building your first robot<a>
+ * @see <a href="https://robocode.sourceforge.io/myfirstrobot/MyFirstRobot.html">
+ *      Building your first robot</a>
  *
  * @see JuniorRobot
  * @see AdvancedRobot
@@ -88,18 +88,18 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Immediately moves your robot ahead (forward) by distance measured in
 	 * pixels.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the remaining distance to move is 0.
-	 * <p/>
+	 * <p>
 	 * If the robot collides with a wall, the move is complete, meaning that the
 	 * robot will not move any further. If the robot collides with another
 	 * robot, the move is complete if you are heading toward the other robot.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot is set to move backward
 	 * instead of forward.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Move the robot 100 pixels forward
@@ -125,18 +125,18 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Immediately moves your robot backward by distance measured in pixels.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the remaining distance to move is 0.
-	 * <p/>
+	 * <p>
 	 * If the robot collides with a wall, the move is complete, meaning that the
 	 * robot will not move any further. If the robot collides with another
 	 * robot, the move is complete if you are heading toward the other robot.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot is set to move forward instead
 	 * of backward.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Move the robot 100 pixels backward
@@ -189,7 +189,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Returns the direction that the robot's body is facing, in degrees.
 	 * The value returned will be between 0 and 360 (is excluded).
-	 * <p/>
+	 * <p>
 	 * Note that the heading in Robocode is like a compass, where 0 means North,
 	 * 90 means East, 180 means South, and 270 means West.
 	 *
@@ -285,7 +285,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * The main method in every robot. You must override this to set up your
 	 * robot's basic behavior.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // A basic robot that moves around in a square
@@ -301,14 +301,14 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Immediately turns the robot's body to the left by degrees.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the robot's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot 180 degrees to the left
@@ -319,8 +319,8 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's body to the left.
-	 *                If {@code degrees} > 0 the robot will turn left.
-	 *                If {@code degrees} < 0 the robot will turn right.
+	 *                If {@code degrees} &gt; 0 the robot will turn left.
+	 *                If {@code degrees} &lt; 0 the robot will turn right.
 	 *                If {@code degrees} = 0 the robot will not turn, but execute.
 	 * @see #turnRight(double)
 	 * @see #turnGunLeft(double)
@@ -340,11 +340,11 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * Immediately turns the robot's body to the right by degrees.
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the robot's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot 180 degrees to the right
@@ -355,8 +355,8 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's body to the right.
-	 *                If {@code degrees} > 0 the robot will turn right.
-	 *                If {@code degrees} < 0 the robot will turn left.
+	 *                If {@code degrees} &gt; 0 the robot will turn right.
+	 *                If {@code degrees} &lt; 0 the robot will turn left.
 	 *                If {@code degrees} = 0 the robot will not turn, but execute.
 	 * @see #turnLeft(double)
 	 * @see #turnGunLeft(double)
@@ -374,7 +374,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Do nothing this turn, meaning that the robot will skip it's turn.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until the turn is
 	 * over.
 	 */
@@ -389,27 +389,27 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Immediately fires a bullet. The bullet will travel in the direction the
 	 * gun is pointing.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power is an amount of energy that will be taken from
 	 * the robot's energy. Hence, the more power you want to spend on the
 	 * bullet, the more energy is taken from your robot.
-	 * <p/>
+	 * <p>
 	 * The bullet will do (4 * power) damage if it hits another robot. If power
 	 * is greater than 1, it will do an additional 2 * (power - 1) damage.
 	 * You will get (3 * power) back if you hit the other robot. You can call
 	 * {@link Rules#getBulletDamage(double)} for getting the damage that a
 	 * bullet with a specific bullet power will do.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power should be between
 	 * {@link Rules#MIN_BULLET_POWER} and {@link Rules#MAX_BULLET_POWER}.
-	 * <p/>
+	 * <p>
 	 * Note that the gun cannot fire if the gun is overheated, meaning that
-	 * {@link #getGunHeat()} returns a value > 0.
-	 * <p/>
+	 * {@link #getGunHeat()} returns a value &gt; 0.
+	 * <p>
 	 * A event is generated when the bullet hits a robot
 	 * ({@link BulletHitEvent}), wall ({@link BulletMissedEvent}), or another
 	 * bullet ({@link BulletHitBulletEvent}).
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Fire a bullet with maximum power if the gun is ready
@@ -439,27 +439,27 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Immediately fires a bullet. The bullet will travel in the direction the
 	 * gun is pointing.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power is an amount of energy that will be taken from
 	 * the robot's energy. Hence, the more power you want to spend on the
 	 * bullet, the more energy is taken from your robot.
-	 * <p/>
+	 * <p>
 	 * The bullet will do (4 * power) damage if it hits another robot. If power
 	 * is greater than 1, it will do an additional 2 * (power - 1) damage.
 	 * You will get (3 * power) back if you hit the other robot. You can call
 	 * {@link Rules#getBulletDamage(double)} for getting the damage that a
 	 * bullet with a specific bullet power will do.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power should be between
 	 * {@link Rules#MIN_BULLET_POWER} and {@link Rules#MAX_BULLET_POWER}.
-	 * <p/>
+	 * <p>
 	 * Note that the gun cannot fire if the gun is overheated, meaning that
-	 * {@link #getGunHeat()} returns a value > 0.
-	 * <p/>
+	 * {@link #getGunHeat()} returns a value &gt; 0.
+	 * <p>
 	 * A event is generated when the bullet hits a robot
 	 * ({@link BulletHitEvent}), wall ({@link BulletMissedEvent}), or another
 	 * bullet ({@link BulletHitBulletEvent}).
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Fire a bullet with maximum power if the gun is ready
@@ -497,7 +497,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Returns the rate at which the gun will cool down, i.e. the amount of heat
 	 * the gun heat will drop per turn.
-	 * <p/>
+	 * <p>
 	 * The gun cooling rate is default 0.1 / turn, but can be changed by the
 	 * battle setup. So don't count on the cooling rate being 0.1!
 	 *
@@ -517,7 +517,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Returns the direction that the robot's gun is facing, in degrees.
 	 * The value returned will be between 0 and 360 (is excluded).
-	 * <p/>
+	 * <p>
 	 * Note that the heading in Robocode is like a compass, where 0 means North,
 	 * 90 means East, 180 means South, and 270 means West.
 	 *
@@ -537,11 +537,11 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * Returns the current heat of the gun. The gun cannot fire unless this is
 	 * 0. (Calls to fire will succeed, but will not actually fire unless
 	 * getGunHeat() == 0).
-	 * <p/>
+	 * <p>
 	 * The amount of gun heat generated when the gun is fired is
 	 * 1 + (firePower / 5). Each turn the gun heat drops by the amount returned
 	 * by {@link #getGunCoolingRate()}, which is a battle setup.
-	 * <p/>
+	 * <p>
 	 * Note that all guns are "hot" at the start of each round, where the gun
 	 * heat is 3.
 	 *
@@ -579,9 +579,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * BorderSentrys cannot leave (sentry robots robots must stay in the border area), but it also define the
 	 * distance from the border edges where BorderSentrys are allowed/able to make damage to robots entering this
 	 * border area.
-	 * 
+	 *
 	 * @return the border size in units/pixels.
-	 * 
+	 *
 	 * @since 1.9.0.0
 	 */
 	public int getSentryBorderSize() {
@@ -609,7 +609,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * Returns how many sentry robots that are left in the current round.
 	 *
 	 * @return how many sentry robots that are left in the current round.
-	 * 
+	 *
 	 * @since 1.9.1.0
 	 */
 	public int getNumSentries() {
@@ -623,7 +623,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Returns the direction that the robot's radar is facing, in degrees.
 	 * The value returned will be between 0 and 360 (is excluded).
-	 * <p/>
+	 * <p>
 	 * Note that the heading in Robocode is like a compass, where 0 means North,
 	 * 90 means East, 180 means South, and 270 means West.
 	 *
@@ -657,9 +657,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Returns the game time of the current round, where the time is equal to
 	 * the current turn in the round.
-	 * <p/>
+	 * <p>
 	 * A battle consists of multiple rounds.
-	 * <p/>
+	 * <p>
 	 * Time is reset to 0 at the beginning of every round.
 	 *
 	 * @return the game time/turn of the current round.
@@ -674,7 +674,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Returns the velocity of the robot measured in pixels/turn.
-	 * <p/>
+	 * <p>
 	 * The maximum velocity of a robot is defined by {@link Rules#MAX_VELOCITY}
 	 * (8 pixels / turn).
 	 *
@@ -753,10 +753,10 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * Scans for other robots. This method is called automatically by the game,
 	 * as long as the robot is moving, turning its body, turning its gun, or
 	 * turning its radar.
-	 * <p/>
+	 * <p>
 	 * Scan will cause {@link #onScannedRobot(ScannedRobotEvent)
 	 * onScannedRobot(ScannedRobotEvent)} to be called if you see a robot.
-	 * <p/>
+	 * <p>
 	 * There are 2 reasons to call {@code scan()} manually:
 	 * <ol>
 	 * <li>You want to scan after you stop moving.
@@ -765,7 +765,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * and you still see a robot, then the system will interrupt your
 	 * {@code onScannedRobot} event immediately and start it from the top.
 	 * </ol>
-	 * <p/>
+	 * <p>
 	 * This call executes immediately.
 	 *
 	 * @see #onScannedRobot(ScannedRobotEvent)
@@ -781,19 +781,19 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the gun to turn independent from the robot's turn.
-	 * <p/>
+	 * <p>
 	 * Ok, so this needs some explanation: The gun is mounted on the robot's
 	 * body. So, normally, if the robot turns 90 degrees to the right, then the
 	 * gun will turn with it as it is mounted on top of the robot's body. To
 	 * compensate for this, you can call {@code setAdjustGunForRobotTurn(true)}.
 	 * When this is set, the gun will turn independent from the robot's turn,
 	 * i.e. the gun will compensate for the robot's body turn.
-	 * <p/>
+	 * <p>
 	 * Note: This method is additive until you reach the maximum the gun can
 	 * turn. The "adjust" is added to the amount you set for turning the robot,
 	 * then capped by the physics of the game. If you turn infinite, then the
 	 * adjust is ignored (and hence overridden).
-	 * <p/>
+	 * <p>
 	 * Example, assuming both the robot and gun start out facing up (0 degrees):
 	 * <pre>
 	 *   // Set gun to turn with the robot's turn
@@ -812,7 +812,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 *   turnLeft(90);
 	 *   // Both are back to 0 degrees.
 	 * </pre>
-	 * <p/>
+	 * <p>
 	 * Note: The gun compensating this way does count as "turning the gun".
 	 * See {@link #setAdjustRadarForGunTurn(boolean)} for details.
 	 *
@@ -830,7 +830,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the radar to turn independent from the robot's turn.
-	 * <p/>
+	 * <p>
 	 * Ok, so this needs some explanation: The radar is mounted on the gun, and
 	 * the gun is mounted on the robot's body. So, normally, if the robot turns
 	 * 90 degrees to the right, the gun turns, as does the radar. Hence, if the
@@ -839,12 +839,12 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * this, you can call {@code setAdjustRadarForRobotTurn(true)}. When this is
 	 * set, the radar will turn independent from the robot's turn, i.e. the
 	 * radar will compensate for the robot's turn.
-	 * <p/>
+	 * <p>
 	 * Note: This method is additive until you reach the maximum the radar can
 	 * turn. The "adjust" is added to the amount you set for turning the robot,
 	 * then capped by the physics of the game. If you turn infinite, then the
 	 * adjust is ignored (and hence overridden).
-	 * <p/>
+	 * <p>
 	 * Example, assuming the robot, gun, and radar all start out facing up (0
 	 * degrees):
 	 * <pre>
@@ -877,19 +877,19 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the radar to turn independent from the gun's turn.
-	 * <p/>
+	 * <p>
 	 * Ok, so this needs some explanation: The radar is mounted on the robot's
 	 * gun. So, normally, if the gun turns 90 degrees to the right, then the
 	 * radar will turn with it as it is mounted on top of the gun. To compensate
 	 * for this, you can call {@code setAdjustRadarForGunTurn(true)}. When this
 	 * is set, the radar will turn independent from the robot's turn, i.e. the
 	 * radar will compensate for the gun's turn.
-	 * <p/>
+	 * <p>
 	 * Note: This method is additive until you reach the maximum the radar can
 	 * turn. The "adjust" is added to the amount you set for turning the gun,
 	 * then capped by the physics of the game. If you turn infinite, then the
 	 * adjust is ignored (and hence overridden).
-	 * <p/>
+	 * <p>
 	 * Example, assuming both the gun and radar start out facing up (0 degrees):
 	 * <pre>
 	 *   // Set radar to turn with the gun's turn
@@ -925,10 +925,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the color of the robot's body, gun, and radar in the same time.
-	 * <p/>
-	 * You may only call this method one time per battle. A {@code null}
-	 * indicates the default (blue) color.
-	 * <p/>
+	 * <p>
+	 * A {@code null} indicates the default (blue) color.
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -966,11 +965,10 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Sets the color of the robot's body, gun, radar, bullet, and scan arc in
 	 * the same time.
-	 * <p/>
-	 * You may only call this method one time per battle. A {@code null}
-	 * indicates the default (blue) color for the body, gun, radar, and scan
-	 * arc, but white for the bullet color.
-	 * <p/>
+	 * <p>
+	 * A {@code null} indicates the default (blue) color for the body, gun,
+	 * radar, and scan arc, but white for the bullet color.
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -1013,11 +1011,10 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	/**
 	 * Sets all the robot's color to the same color in the same time, i.e. the
 	 * color of the body, gun, radar, bullet, and scan arc.
-	 * <p/>
-	 * You may only call this method one time per battle. A {@code null}
-	 * indicates the default (blue) color for the body, gun, radar, and scan
-	 * arc, but white for the bullet color.
-	 * <p/>
+	 * <p>
+	 * A {@code null} indicates the default (blue) color for the body, gun,
+	 * radar, and scan arc, but white for the bullet color.
+	 * </p>
 	 * <pre>
 	 * Example:
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -1055,9 +1052,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the color of the robot's body.
-	 * <p/>
+	 * <p>
 	 * A {@code null} indicates the default (blue) color.
-	 * <p/>
+	 * </p>
 	 * <pre>
 	 * Example:
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -1091,9 +1088,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the color of the robot's gun.
-	 * <p/>
+	 * <p>
 	 * A {@code null} indicates the default (blue) color.
-	 * <p/>
+	 * </p>
 	 * <pre>
 	 * Example:
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -1127,9 +1124,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the color of the robot's radar.
-	 * <p/>
+	 * <p>
 	 * A {@code null} indicates the default (blue) color.
-	 * <p/>
+	 * </p>
 	 * <pre>
 	 * Example:
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -1163,9 +1160,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the color of the robot's bullets.
-	 * <p/>
+	 * <p>
 	 * A {@code null} indicates the default white color.
-	 * <p/>
+	 * </p>
 	 * <pre>
 	 * Example:
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -1199,9 +1196,9 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the color of the robot's scan arc.
-	 * <p/>
+	 * <p>
 	 * A {@code null} indicates the default (blue) color.
-	 * <p/>
+	 * </p>
 	 * <pre>
 	 * Example:
 	 *   // Don't forget to import java.awt.Color at the top...
@@ -1237,7 +1234,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * Immediately stops all movement, and saves it for a call to
 	 * {@link #resume()}. If there is already movement saved from a previous
 	 * stop, this will have no effect.
-	 * <p/>
+	 * <p>
 	 * This method is equivalent to {@code #stop(false)}.
 	 *
 	 * @see #resume()
@@ -1267,7 +1264,7 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Immediately resumes the movement you stopped by {@link #stop()}, if any.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete.
 	 *
 	 * @see #stop()
@@ -1283,14 +1280,14 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Immediately turns the robot's gun to the left by degrees.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the gun's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's gun 180 degrees to the left
@@ -1301,8 +1298,8 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's gun to the left.
-	 *                If {@code degrees} > 0 the robot's gun will turn left.
-	 *                If {@code degrees} < 0 the robot's gun will turn right.
+	 *                If {@code degrees} &gt; 0 the robot's gun will turn left.
+	 *                If {@code degrees} &lt; 0 the robot's gun will turn right.
 	 *                If {@code degrees} = 0 the robot's gun will not turn, but execute.
 	 * @see #turnGunRight(double)
 	 * @see #turnLeft(double)
@@ -1323,11 +1320,11 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * Immediately turns the robot's gun to the right by degrees.
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the gun's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's gun 180 degrees to the right
@@ -1338,8 +1335,8 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's gun to the right.
-	 *                If {@code degrees} > 0 the robot's gun will turn right.
-	 *                If {@code degrees} < 0 the robot's gun will turn left.
+	 *                If {@code degrees} &gt; 0 the robot's gun will turn right.
+	 *                If {@code degrees} &lt; 0 the robot's gun will turn left.
 	 *                If {@code degrees} = 0 the robot's gun will not turn, but execute.
 	 * @see #turnGunLeft(double)
 	 * @see #turnLeft(double)
@@ -1358,14 +1355,14 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Immediately turns the robot's radar to the left by degrees.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the radar's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's radar 180 degrees to the left
@@ -1376,8 +1373,8 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's radar to the left.
-	 *                If {@code degrees} > 0 the robot's radar will turn left.
-	 *                If {@code degrees} < 0 the robot's radar will turn right.
+	 *                If {@code degrees} &gt; 0 the robot's radar will turn left.
+	 *                If {@code degrees} &lt; 0 the robot's radar will turn right.
 	 *                If {@code degrees} = 0 the robot's radar will not turn, but execute.
 	 * @see #turnRadarRight(double)
 	 * @see #turnLeft(double)
@@ -1399,11 +1396,11 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * Immediately turns the robot's radar to the right by degrees.
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the radar's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's radar 180 degrees to the right
@@ -1414,8 +1411,8 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's radar to the right.
-	 *                If {@code degrees} > 0 the robot's radar will turn right.
-	 *                If {@code degrees} < 0 the robot's radar will turn left.
+	 *                If {@code degrees} &gt; 0 the robot's radar will turn right.
+	 *                If {@code degrees} &lt; 0 the robot's radar will turn left.
 	 *                If {@code degrees} = 0 the robot's radar will not turn, but execute.
 	 * @see #turnRadarLeft(double)
 	 * @see #turnLeft(double)
@@ -1448,15 +1445,15 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Returns a graphics context used for painting graphical items for the robot.
-	 * <p/>
+	 * <p>
 	 * This method is very useful for debugging your robot.
-	 * <p/>
+	 * <p>
 	 * Note that the robot will only be painted if the "Paint" is enabled on the
 	 * robot's console window; otherwise the robot will never get painted (the
 	 * reason being that all robots might have graphical items that must be
 	 * painted, and then you might not be able to tell what graphical items that
 	 * have been painted for your robot).
-	 * <p/>
+	 * <p>
 	 * Also note that the coordinate system for the graphical context where you
 	 * paint items fits for the Robocode coordinate system where (0, 0) is at
 	 * the bottom left corner of the battlefield, where X is towards right and Y
@@ -1476,14 +1473,14 @@ public class Robot extends _Robot implements IInteractiveRobot, IPaintRobot, IBa
 
 	/**
 	 * Sets the debug property with the specified key to the specified value.
-	 * <p/>
+	 * <p>
 	 * This method is very useful when debugging or reviewing your robot as you
 	 * will be able to see this property displayed in the robot console for your
 	 * robots under the Debug Properties tab page.
 	 *
 	 * @param key the name/key of the debug property.
 	 * @param value the new value of the debug property, where {@code null} or
-	 *              the empty string is used for removing this debug property. 
+	 *              the empty string is used for removing this debug property.
 	 * @since 1.6.2
 	 */
 	public void setDebugProperty(String key, String value) {

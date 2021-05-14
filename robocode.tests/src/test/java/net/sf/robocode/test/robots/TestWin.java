@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.test.robots;
 
@@ -11,6 +11,7 @@ package net.sf.robocode.test.robots;
 import net.sf.robocode.test.helpers.RobocodeTestBed;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import robocode.BattleResults;
 import robocode.control.events.BattleCompletedEvent;
@@ -22,14 +23,13 @@ import robocode.control.snapshot.IRobotSnapshot;
  * @author Pavel Savara (original)
  * @author Flemming N. Larsen (contributor)
  */
+@Ignore
 public class TestWin extends RobocodeTestBed {
 	private BattleResults[] results; 
 	private StringBuffer outputBuf = new StringBuffer();
 	
 	@Test
-	public void run() {
-		super.run();
-	}
+	public void run() { super.run(); }
 
 	@Override
 	public int getNumRounds() {
@@ -37,8 +37,13 @@ public class TestWin extends RobocodeTestBed {
 	}
 
 	@Override
-	public String getRobotNames() {
-		return "sample.MyFirstRobot,tested.robots.BattleWin";        
+	public String getRobotName() {
+		return "sample.MyFirstRobot";
+	}
+
+	@Override
+	public String getEnemyName() {
+		return "tested.robots.BattleWin";
 	}
 
 	@Override

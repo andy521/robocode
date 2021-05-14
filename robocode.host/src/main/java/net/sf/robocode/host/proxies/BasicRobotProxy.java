@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host.proxies;
 
@@ -35,8 +35,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-// XXX Remember to update the .NET version whenever a change is made to this class!
-
 /**
  * @author Pavel Savara (original)
  * @author Flemming N. Larsen (contributor)
@@ -54,7 +52,7 @@ public class BasicRobotProxy extends HostingRobotProxy implements IBasicRobotPee
 	private ExecResults execResults;
 
 	private final Map<Integer, Bullet> bullets = new ConcurrentHashMap<Integer, Bullet>();
-	private int nextBulletId = 1; // 0 is used for bullet explosions 
+	private int nextBulletId; // 0 is used for bullet explosions
 
 	private final AtomicInteger setCallCount = new AtomicInteger(0);
 	private final AtomicInteger getCallCount = new AtomicInteger(0);
@@ -86,6 +84,9 @@ public class BasicRobotProxy extends HostingRobotProxy implements IBasicRobotPee
 
 		setSetCallCount(0);
 		setGetCallCount(0);
+
+		// make bulletId unique for entire battle and across all robots
+		nextBulletId = 1 + this.statics.getRobotIndex() * 10000 + status.getRoundNum() * 1000000;
 	}
 
 	@Override
@@ -152,27 +153,22 @@ public class BasicRobotProxy extends HostingRobotProxy implements IBasicRobotPee
 
 	// fast setters
 	public void setBodyColor(Color color) {
-		setCall();
 		commands.setBodyColor(color != null ? color.getRGB() : ExecCommands.defaultBodyColor);
 	}
 
 	public void setGunColor(Color color) {
-		setCall();
 		commands.setGunColor(color != null ? color.getRGB() : ExecCommands.defaultGunColor);
 	}
 
 	public void setRadarColor(Color color) {
-		setCall();
 		commands.setRadarColor(color != null ? color.getRGB() : ExecCommands.defaultRadarColor);
 	}
 
 	public void setBulletColor(Color color) {
-		setCall();
 		commands.setBulletColor(color != null ? color.getRGB() : ExecCommands.defaultBulletColor);
 	}
 
 	public void setScanColor(Color color) {
-		setCall();
 		commands.setScanColor(color != null ? color.getRGB() : ExecCommands.defaultScanColor);
 	}
 

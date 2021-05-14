@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.ui.editor;
 
@@ -277,7 +277,7 @@ public class JavaDocument extends StyledDocument {
 	 * Sets the tabulation column size.
 	 * 
 	 * @param tabSize
-	 *            is the new tabulation column size, which must be >= 1.
+	 *            is the new tabulation column size, which must be &gt;= 1.
 	 */
 	public void setTabSize(int tabSize) {
 		this.tabSize = tabSize;

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.repository.items;
 
@@ -196,11 +196,11 @@ public class TeamItem extends RobotSpecItem implements IRobotSpecItem {
 		if (props.getVersion() != null) {
 			properties.setProperty(TEAM_VERSION, props.getVersion());
 		}
-		if (props.getDescription() != null) {
-			properties.setProperty(TEAM_DESCRIPTION, props.getDescription());
-		}
 		if (props.getAuthor() != null) {
 			properties.setProperty(TEAM_AUTHOR_NAME, props.getAuthor());
+		}
+		if (props.getDescription() != null) {
+			properties.setProperty(TEAM_DESCRIPTION, props.getDescription());
 		}
 		if (props.getWebPage() != null) {
 			properties.setProperty(TEAM_WEBPAGE, props.getWebPage().toExternalForm());
@@ -216,6 +216,9 @@ public class TeamItem extends RobotSpecItem implements IRobotSpecItem {
 		try {
 			Properties team = loadTeamProperties(target);
 
+			if (props.getVersion() != null) {
+				team.setProperty(TEAM_VERSION, props.getVersion());
+			}
 			if (props.getMembers() != null) {
 				team.setProperty(TEAM_MEMBERS, props.getMembers());
 			}

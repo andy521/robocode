@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.serialization;
 
@@ -28,6 +28,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -40,9 +41,12 @@ public class RbSerializerTest {
 	
 	@BeforeClass
 	public static void init() {
+		if (!new File("").getAbsolutePath().endsWith("robocode.core")) {
+			throw new Error("Please run test with current directory in 'robocode.core'");
+		}
+
 		// we need to switch off engine classloader for this test
 		System.setProperty("NOSECURITY", "true");
-		System.setProperty("WORKINGDIRECTORY", "target//test-classes");
 		System.setProperty("TESTING", "true");
 		HiddenAccess.initContainer();
 	}
@@ -128,7 +132,7 @@ public class RbSerializerTest {
 		ec.getBullets().add(new BulletCommand(1.0, true, 0.9354, 11));
 		ec.getTeamMessages().add(new TeamMessage("Foo", "Bar", null));
 		ec.getDebugProperties().add(
-				new DebugProperty("UTF8 Native characters", "Pøíliš lu?ouèkı kùò úpìl ïábelské ódy"));
+				new DebugProperty("UTF8 Native characters", "PÅ™Ã­liÅ¡ Å¾luÅ¥ouÄkÃ½ kÅ¯Åˆ ÃºpÄ›l ÄÃ¡belskÃ© Ã³dy."));
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
 		RbSerializer rbs = new RbSerializer();
@@ -138,7 +142,7 @@ public class RbSerializerTest {
 		ExecCommands ec2 = (ExecCommands) rbs.deserialize(in);
 
 		Assert.assertEquals(ec2.getDebugProperties().get(0).getKey(), "UTF8 Native characters");
-		Assert.assertEquals(ec2.getDebugProperties().get(0).getValue(), "Pøíliš lu?ouèkı kùò úpìl ïábelské ódy");
+		Assert.assertEquals(ec2.getDebugProperties().get(0).getValue(), "PÅ™Ã­liÅ¡ Å¾luÅ¥ouÄkÃ½ kÅ¯Åˆ ÃºpÄ›l ÄÃ¡belskÃ© Ã³dy.");
 	}
 
 	// @Test
@@ -242,15 +246,17 @@ public class RbSerializerTest {
 		};
 
 		d.setSize(200, 200);
+		if (!java.awt.GraphicsEnvironment.isHeadless()) {
+			JFrame f = new JFrame() {
+			};
 
-		JFrame f = new JFrame() {};
-
-		f.add(d);
-		f.pack();
-		f.setVisible(true);
-		f.setFocusable(true);
-		Thread.sleep(100);
-		f.setVisible(false);
+			f.add(d);
+			f.pack();
+			f.setVisible(true);
+			f.setFocusable(true);
+			Thread.sleep(100);
+			f.setVisible(false);
+		}
 
 		Assert.assertNull("Exception occured: " + exception, exception);
 	}

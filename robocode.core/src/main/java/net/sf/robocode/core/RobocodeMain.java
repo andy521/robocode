@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.core;
 
@@ -26,7 +26,7 @@ import net.sf.robocode.util.StringUtil;
 import net.sf.robocode.version.IVersionManager;
 import robocode.control.events.*;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,9 +36,9 @@ import java.io.PrintStream;
 
 /**
  * Robocode - A programming game involving battling AI tanks.<br>
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  *
- * @see <a target="_top" href="http://robocode.sourceforge.net">robocode.sourceforge.net</a>
+ * @see <a target="_top" href="https://robocode.sourceforge.io">robocode.sourceforge.net</a>
  *
  * @author Mathew A. Nelson (original)
  * @author Flemming N. Larsen (contributor)
@@ -105,12 +105,7 @@ public final class RobocodeMain extends RobocodeMainBase {
 	}
 
 	public void run() {
-		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {			
-			@Override
-			public void uncaughtException(Thread thread, Throwable t) {
-				t.printStackTrace();
-			}
-		});
+		Thread.setDefaultUncaughtExceptionHandler((thread, t) -> t.printStackTrace());
 
 		try {
 			hostManager.initSecurity();
@@ -167,10 +162,11 @@ public final class RobocodeMain extends RobocodeMainBase {
 				if (new File(setup.replayFilename).exists()) {
 					battleManager.replay();
 				} else {
-					System.err.println("The specified battle record file '" + setup.replayFilename + "' was not found");
+					Logger.logError("The specified battle record file '" + setup.replayFilename + "' was not found");
 					System.exit(8);
 				}
 			}
+			Logger.initialized = true;
 		} catch (Throwable e) {
 			Logger.logError(e);
 		}
@@ -192,6 +188,16 @@ public final class RobocodeMain extends RobocodeMainBase {
 
 		setup.tps = properties.getOptionsBattleDesiredTPS();
 
+		if (GraphicsEnvironment.isHeadless()) {
+			if (windowManager != null) {
+				windowManager.setEnableGUI(false);
+				Logger.logWarning("Disabled GUI on headless system");
+			}
+			if (soundManager != null) {
+				soundManager.setEnableSound(false);
+			}
+		}
+
 		// Disable canonical file path cache under Windows as it causes trouble when returning
 		// paths with differently-capitalized file names.
 		if (System.getProperty("os.name").toLowerCase().startsWith("windows ")) {
@@ -204,6 +210,12 @@ public final class RobocodeMain extends RobocodeMainBase {
 		// Read more about headless mode here:
 		// http://java.sun.com/developer/technicalArticles/J2SE/Desktop/headless/
 		System.setProperty("java.awt.headless", "false");
+
+		// Set UI scale to 1 for HiDPI if no UI scale has been set from the command line
+		// This way HiDPI will not affect Robocode, as 1x1 pixel is not affected by HiDPI scaling
+		if (System.getProperty("sun.java2d.uiScale") == null) {
+			System.setProperty("sun.java2d.uiScale", "1");
+		}
 
 		for (int i = 0; i < args.length; i++) {
 			String currentArg = args[i];
@@ -286,7 +298,9 @@ public final class RobocodeMain extends RobocodeMainBase {
 		System.out.print(
 				"Usage: robocode [-?] [-help] [-cwd path] [-battle filename [-results filename]\n"
 						+ "                [-record filename] [-recordXML filename] [-replay filename]\n"
-						+ "                [-tps tps] [-minimize] [-nodisplay] [-nosound]\n\n" + "where options include:\n"
+						+ "                [-tps tps] [-minimize] [-nodisplay] [-nosound]\n"
+						+ "\n"
+						+ "where options include:\n"
 						+ "  -? or -help                Prints out the command line usage of Robocode\n"
 						+ "  -cwd <path>                Change the current working directory\n"
 						+ "  -battle <battle file>      Run the battle specified in a battle file\n"
@@ -305,6 +319,8 @@ public final class RobocodeMain extends RobocodeMainBase {
 						+ "  -Ddebug=true|false         Enable/disable debugging used for preventing\n"
 						+ "                             robot timeouts and skipped turns, and allows an\n"
 						+ "                             an unlimited painting buffer when debugging robots\n"
+						+ "  -DPAINTING=true|false      Enable/disable painting all robot painting on the\n"
+						+ "                             screen per default.\n"
 						+ "  -DlogMessages=true|false   Log messages and warnings will be disabled\n"
 						+ "  -DlogErrors=true|false     Log errors will be disabled\n"
 						+ "  -DEXPERIMENTAL=true|false  Enable/disable access to peer in robot interfaces\n"

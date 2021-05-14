@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host;
 
@@ -12,6 +12,7 @@ import net.sf.robocode.core.Container;
 import net.sf.robocode.io.Logger;
 import net.sf.robocode.settings.ISettingsManager;
 import net.sf.robocode.ui.IWindowManager;
+import net.sf.robocode.util.JavaVersion;
 
 
 /**
@@ -21,8 +22,11 @@ import net.sf.robocode.ui.IWindowManager;
  * @author Pavel Savara (contributor)
  */
 public class CpuManager implements ICpuManager { // NO_UCD (use default)
-	private final static int APPROXIMATE_CYCLES_ALLOWED = 6250;
-	private final static int TEST_PERIOD_MILLIS = 5000;
+
+	private static final int APPROXIMATE_CYCLES_ALLOWED = 6250;
+	private static final int TEST_PERIOD_MILLIS = 5000;
+
+	private static final boolean JAVA_9_OR_NEWER = JavaVersion.getJavaMajorVersion() >= 9;
 
 	private long cpuConstant = -1;
 	private final ISettingsManager properties;
@@ -61,9 +65,7 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 		long start = System.currentTimeMillis();
 
 		while (System.currentTimeMillis() - start < TEST_PERIOD_MILLIS) {
-			d += Math.hypot(Math.sqrt(Math.abs(Math.log(Math.atan(Math.random())))),
-					Math.cbrt(Math.abs(Math.random() * 10)))
-					/ Math.exp(Math.random());
+			d += Math.hypot(Math.sqrt(Math.abs(log(Math.atan(Math.random())))), Math.cbrt(Math.abs(Math.random() * 10))) / exp(Math.random());
 			count++;
 		}
 
@@ -83,4 +85,31 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 		}
 	}
 
+	// Work-around for bug #390
+	// The Java 9 Math.log(x) methods is much faster than in Java 8
+	private static double log(double x) {
+		if (JAVA_9_OR_NEWER) {
+			double d = 0;
+			for (int i = 0; i < 6; i++) {
+				d += Math.log(x);
+			}
+			return d;
+		} else {
+			return Math.log(x);
+		}
+	}
+
+	// Work-around for bug #390
+	// The Java 9 Math.exp(x) methods is much faster than in Java 8
+	private static double exp(double x) {
+		if (JAVA_9_OR_NEWER) {
+			double d = 0;
+			for (int i = 0; i < 62; i++) {
+				d += Math.exp(x);
+			}
+			return d;
+		} else {
+			return Math.exp(x);
+		}
+	}
 }

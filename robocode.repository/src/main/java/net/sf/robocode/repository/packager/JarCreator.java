@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.repository.packager;
 
@@ -123,7 +123,8 @@ public class JarCreator {
 	private static void addTeamItemToJar(JarOutputStream target, Set<String> jarEntries, TeamItem teamItem, RobotProperties props) throws IOException {
 		String robotPathWithoutFileExt = teamItem.getRelativePath() + '/' + teamItem.getShortClassName();
 
-		File file = new File(FileUtil.getRobotsDir(), robotPathWithoutFileExt);
+		String fileExt = ".team";
+		File file = new File(FileUtil.getRobotsDir(), robotPathWithoutFileExt + fileExt);
 
 		// Store .team file into local robot dir
 		FileOutputStream fis = null;
@@ -134,7 +135,7 @@ public class JarCreator {
 			FileUtil.cleanupStream(fis);
 		}
 		// Store .team file into jar file
-		addToJar(target, jarEntries, FileUtil.getRobotsDir().getPath(), robotPathWithoutFileExt, ".team");
+		addToJar(target, jarEntries, FileUtil.getRobotsDir().getPath(), robotPathWithoutFileExt, fileExt);
 	}
 
 	private static void addRobotFilesToJar(JarOutputStream target, Set<String> jarEntries, IRobotItem robotItem, RobotProperties props) throws IOException {

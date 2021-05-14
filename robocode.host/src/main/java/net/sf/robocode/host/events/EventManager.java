@@ -1,14 +1,16 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host.events;
 
 
 import net.sf.robocode.host.proxies.BasicRobotProxy;
+import net.sf.robocode.io.Logger;
+import net.sf.robocode.io.RobocodeProperties;
 import net.sf.robocode.security.HiddenAccess;
 import robocode.*;
 import robocode.exception.EventInterruptedException;
@@ -17,8 +19,8 @@ import robocode.robotinterfaces.IBasicRobot;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static net.sf.robocode.io.Logger.logError;
 
-// XXX Remember to update the .NET version whenever a change is made to this class!
 
 /**
  * This class is used for managing the event queue for a robot.
@@ -422,8 +424,15 @@ public final class EventManager implements IEventManager {
 					HiddenAccess.dispatch(event, robot, robotProxy.getStatics(), robotProxy.getGraphicsImpl());
 				}
 			} catch (Exception ex) {
-				robotProxy.println("SYSTEM: " + ex.getClass().getName() + " occurred on " + event.getClass().getName());
-				ex.printStackTrace(robotProxy.getOut());
+				if (RobocodeProperties.isTestingOn()) {
+					logError(robotProxy.getName() + ": Exception: " + ex, ex);
+				} else {
+					robotProxy.println("SYSTEM: " + ex.getClass().getName() + " occurred on " + event.getClass().getName());
+					if (robotProxy.getRobotSpecification().isDevelopmentVersion()) {
+						Logger.logWarning(robotProxy.getName() + ": " + ex.getClass().getName() + " occurred on " + event.getClass().getName());
+					}
+					ex.printStackTrace(robotProxy.getOut());
+				}
 			}
 		}
 	}

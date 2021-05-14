@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -14,9 +14,9 @@ import robocode.robotinterfaces.peer.IAdvancedRobotPeer;
 /**
  * This class is used by the system as a placeholder for all *Radians calls in
  * {@link AdvancedRobot}. You may refer to this class for documentation only.
- * <p/>
+ * <p>
  * You should create a {@link AdvancedRobot} instead.
- * <p/>
+ * <p>
  * (The Radians methods themselves will continue work, however).
  *
  * @see Robot

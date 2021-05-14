@@ -1,11 +1,10 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
-
 /**
  * The Robocode Control API is used for controlling the Robocode
  * application from another external application. Basically, it is possible
@@ -92,14 +91,20 @@
  * 
  *     // Called when the game sends out an information message during the battle
  *     public void onBattleMessage(BattleMessageEvent e) {
- *         System.out.println("Msg> " + e.getMessage());
+ *         System.out.println("Msg&gt; " + e.getMessage());
  *     }
  * 
  *     // Called when the game sends out an error message during the battle
  *     public void onBattleError(BattleErrorEvent e) {
- *         System.out.println("Err> " + e.getError());
+ *         System.out.println("Err&gt; " + e.getError());
  *     }
  * }
  * </pre>
+ * <h2>Notice</h2>
+ * <p>
+ * In order to avoid ClassNotFoundException with your application, you will need to add most of the .jar files
+ * located under the /libs folder of the robocode directory to the classpath of your application.
+ * That is robocode.jar, picocontainer-xxx.jar etc. You can leave out roborumble.jar and the ones for UI and
+ * sound if you don't use the UI with the RobocodeEngine.</p>
  */
 package robocode.control;

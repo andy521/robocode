@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package sample;
 
@@ -21,9 +21,9 @@ import java.awt.event.MouseWheelEvent;
 
 /**
  * Interactive - a sample robot by Flemming N. Larsen.
- * <p/>
+ * <p>
  * This is a robot that is controlled using the arrow keys and mouse only.
- * <p/>
+ * <p>
  * Keys:
  * - W or arrow up:    Move forward
  * - S or arrow down:  Move backward
@@ -36,15 +36,15 @@ import java.awt.event.MouseWheelEvent;
  * - Button 1:    Fire a bullet with power = 1
  * - Button 2:    Fire a bullet with power = 2
  * - Button 3:    Fire a bullet with power = 3
- * <p/>
+ * <p>
  * The bullet color depends on the fire power:
  * - Power = 1:   Yellow
  * - Power = 2:   Orange
  * - Power = 3:   Red
- * <p/>
+ * <p>
  * Note that the robot will continue firing as long as the mouse button is
  * pressed down.
- * <p/>
+ * <p>
  * By enabling the "Paint" button on the robot console window for this robot,
  * a cross hair will be painted for the robots current aim (controlled by the
  * mouse).

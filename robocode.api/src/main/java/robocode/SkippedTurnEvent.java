@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -35,14 +35,14 @@ import java.nio.ByteBuffer;
  * </pre>
  * will cause many SkippedTurnEvents, because you are not responding to the game.
  * If you receive 30 SkippedTurnEvents, you will be removed from the round.
- * <p/>
+ * <p>
  * Instead, you should do something such as:
  * <pre>
- *     for (int i = 0; i < 30; i++) {
+ *     for (int i = 0; i &lt; 30; i++) {
  *         doNothing(); // or perhaps scan();
  *     }
  * </pre>
- * <p/>
+ * <p>
  * This event may also be generated if you are simply doing too much processing
  * between actions, that is using too much processing power for the calculations
  * etc. in your robot.

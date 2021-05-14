@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.battle.snapshot;
 
@@ -11,13 +11,11 @@ package net.sf.robocode.battle.snapshot;
 import net.sf.robocode.battle.peer.RobotPeer;
 import net.sf.robocode.peer.DebugProperty;
 import net.sf.robocode.peer.ExecCommands;
-import net.sf.robocode.serialization.IXmlSerializable;
-import net.sf.robocode.serialization.XmlReader;
-import net.sf.robocode.serialization.SerializableOptions;
-import net.sf.robocode.serialization.XmlWriter;
+import net.sf.robocode.serialization.*;
 import robocode.control.snapshot.IRobotSnapshot;
 import robocode.control.snapshot.IScoreSnapshot;
 import robocode.control.snapshot.RobotState;
+import robocode.util.Utils;
 
 import java.awt.geom.Arc2D;
 import java.io.IOException;
@@ -189,7 +187,9 @@ public final class RobotSnapshot implements Serializable, IXmlSerializable, IRob
 
 	@Override
 	public String toString() {
-		return shortName + " (" + (int) energy + ") X" + (int) x + " Y" + (int) y + " " + state.toString();
+		return shortName + " (" + (int) energy + ") X" + (int) x + " Y" + (int) y
+				+ " ~" + Utils.angleToApproximateDirection(bodyHeading)
+				+ " " + state.toString();
 	}
 
 	/**

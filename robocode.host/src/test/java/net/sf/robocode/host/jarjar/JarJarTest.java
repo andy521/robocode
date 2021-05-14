@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host.jarjar;
 
@@ -11,6 +11,7 @@ package net.sf.robocode.host.jarjar;
 import org.junit.Test;
 import org.junit.Assert;
 
+import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLClassLoader;
@@ -28,6 +29,9 @@ import net.sf.robocode.io.JarJar;
 public class JarJarTest {
 	static {
 		JarJarURLConnection.register();
+		if (!new File("").getAbsolutePath().endsWith("robocode.host")) {
+			throw new Error("Please run test with current directory in 'robocode.host'");
+		}
 	}
 
 	@Test

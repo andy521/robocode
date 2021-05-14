@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.security;
 
@@ -134,7 +134,7 @@ public class HiddenAccess {
 		}
 		final int i = path.lastIndexOf("robocode.jar");
 
-		if (i > 0) {
+		if (i > 0 && !path.contains("build")) {
 			loader = createClassLoader(classPath, loader, path.substring(0, i));
 		}
 		System.setProperty("robocode.class.path", classPath.toString());
@@ -157,16 +157,23 @@ public class HiddenAccess {
 		if (files != null) {
 			for (File file : files) {
 				final String name = file.toString().toLowerCase();
-
-				if (name.contains("robocode.core")) {
+				final URL url = file.toURI().toURL();
+				
+				if (name.contains("robocode.core")) { // Robocode core
 					foundCore = true;
-					urls.add(file.toURI().toURL());
+					urls.add(url);
 				}
-				if (name.contains("picocontainer")) {
-					urls.add(file.toURI().toURL());
+				if (name.contains("picocontainer")) { // Picocontainer used for modularization
+					urls.add(url);
 				}
-				if (name.contains("codesize")) {
-					urls.add(file.toURI().toURL());
+				if (name.contains("codesize")) { // Codesize tool
+					urls.add(url);
+				}
+				if (name.contains("bcel")) { // BCEL used by Codesize
+					urls.add(url);
+				}
+				if (name.contains("kotlin-stdlib")) { // Kotlin standard library
+					urls.add(url);
 				}
 				classPath.append(File.pathSeparator);
 				classPath.append(file.toString());
@@ -216,7 +223,7 @@ public class HiddenAccess {
 		return specificationHelper.getTeamName(specification);
 	}
 
-	public static void setTeamId(RobotSpecification specification, String teamName) {
+	public static void setTeamName(RobotSpecification specification, String teamName) {
 		specificationHelper.setTeamName(specification, teamName);
 	}
 

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode.control;
 
@@ -27,9 +27,9 @@ import java.util.List;
  * The RobocodeEngine is the interface provided for external applications
  * in order to let these applications run battles within the Robocode application,
  * and to get the results from these battles.
- * <p/>
+ * <p>
  * This class in the main entry class of the {@code robocode.control} package.
- * <p/>
+ * <p>
  * The RobocodeEngine is used by e.g. RoboRumble@Home client, which is integrated in
  * Robocode. In addition, the RobocodeEngine is also used by the test units for
  * testing the Robocode application itself.
@@ -75,7 +75,7 @@ public class RobocodeEngine implements IRobocodeEngine {
 	/**
 	 * @deprecated Since 1.6.2. Use {@link #RobocodeEngine(File)} and
 	 * {@link #addBattleListener(IBattleListener) addBattleListener()} instead.
-	 * <p/>
+	 * <p>
 	 * Creates a new RobocodeEngine for controlling Robocode.
 	 *
 	 * @param robocodeHome the root directory of Robocode, e.g. C:\Robocode.
@@ -93,7 +93,7 @@ public class RobocodeEngine implements IRobocodeEngine {
 	/**
 	 * @deprecated Since 1.6.2. Use {@link #RobocodeEngine()} and
 	 * {@link #addBattleListener(IBattleListener) addBattleListener()} instead.
-	 * <p/>
+	 * <p>
 	 * Creates a new RobocodeEngine for controlling Robocode. The JAR file of
 	 * Robocode is used to determine the root directory of Robocode.
 	 *
@@ -258,6 +258,15 @@ public class RobocodeEngine implements IRobocodeEngine {
 	/**
 	 * {@inheritDoc}
 	 */
+	public void runBattle(BattleSpecification battleSpecification, String initialPositions, boolean waitTillOver, boolean enableRecording) {
+		this.battleSpecification = battleSpecification;
+		ContainerBase.getComponent(IBattleManagerBase.class).startNewBattle(battleSpecification, initialPositions,
+				waitTillOver, enableRecording);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public void waitTillBattleOver() {
 		ContainerBase.getComponent(IBattleManagerBase.class).waitTillOver();
 	}
@@ -267,6 +276,20 @@ public class RobocodeEngine implements IRobocodeEngine {
 	 */
 	public void abortCurrentBattle() {
 		ContainerBase.getComponent(IBattleManagerBase.class).stop(true);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void abortCurrentBattle(boolean waitTillEnd) {
+		ContainerBase.getComponent(IBattleManagerBase.class).stop(waitTillEnd);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void takeScreenshot() {
+		ContainerBase.getComponent(IBattleManagerBase.class).takeScreenshot();
 	}
 
 	/**

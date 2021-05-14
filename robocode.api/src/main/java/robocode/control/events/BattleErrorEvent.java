@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode.control.events;
 
@@ -22,16 +22,19 @@ package robocode.control.events;
  */
 public class BattleErrorEvent extends BattleEvent {
 	private final String error;
+	private final Throwable throwable;
 
 	/**
 	 * Called by the game to create a new BattleErrorEvent.
 	 * Please don't use this constructor as it might change.
 	 *
 	 * @param error the error message from the game.
+	 * @param throwable instance of the error
 	 */
-	public BattleErrorEvent(String error) {
+	public BattleErrorEvent(String error,Throwable throwable) {
 		super();
 		this.error = error;
+		this.throwable = throwable;
 	}
 
 	/**
@@ -41,5 +44,14 @@ public class BattleErrorEvent extends BattleEvent {
 	 */
 	public String getError() {
 		return error;
+	}
+
+	/**
+	 * Returns the error instance when available.
+	 *
+	 * @return the error instance that was sent from the game during the battle. Could be null.
+	 */
+	public Throwable getErrorInstance() {
+		return throwable;
 	}
 }

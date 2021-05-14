@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.ui.dialog;
 
@@ -80,7 +80,7 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem helpRobocodeMenuItem;
 	private JMenuItem helpRoboWikiMenuItem;
 	private JMenuItem helpGoogleGroupRobocodeMenuItem;
-	private JMenuItem helpRobocodeRepositoryMenuItem;
+	private JMenuItem helpRoboRumbleMenuItem;
 
 	private class EventHandler implements ActionListener, MenuListener {
 		public void actionPerformed(ActionEvent e) {
@@ -150,8 +150,8 @@ public class MenuBar extends JMenuBar {
 				helpRoboWikiMenuItemActionPerformed();
 			} else if (source == mb.getHelpGoogleGroupRobocodeMenuItem()) {
 				helpGoogleGroupRobocodeActionPerformed();
-			} else if (source == mb.getHelpRobocodeRepositoryMenuItem()) {
-				helpRobocodeRepositoryActionPerformed();
+			} else if (source == mb.getHelpRoboRumbleMenuItem()) {
+				helpRoboRumbleActionPerformed();
 			} else if (source == mb.getHelpCheckForNewVersionMenuItem()) {
 				helpCheckForNewVersionActionPerformed();
 			} else if (source == mb.getHelpVersionsTxtMenuItem()) {
@@ -578,7 +578,7 @@ public class MenuBar extends JMenuBar {
 			helpMenu.add(getHelpFaqMenuItem());
 			helpMenu.add(new JSeparator());
 			helpMenu.add(getHelpRobocodeMenuItem());
-			helpMenu.add(getHelpRobocodeRepositoryMenuItem());
+			helpMenu.add(getHelpRoboRumbleMenuItem());
 			helpMenu.add(new JSeparator());
 			helpMenu.add(getHelpCheckForNewVersionMenuItem());
 			helpMenu.add(getHelpVersionsTxtMenuItem());
@@ -656,7 +656,7 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem getHelpJavaDocumentationMenuItem() {
 		if (helpJavaDocumentationMenuItem == null) {
 			helpJavaDocumentationMenuItem = new JMenuItem();
-			helpJavaDocumentationMenuItem.setText("Java 6 documentation");
+			helpJavaDocumentationMenuItem.setText("Java API documentation");
 			helpJavaDocumentationMenuItem.setMnemonic('J');
 			helpJavaDocumentationMenuItem.addActionListener(eventHandler);
 		}
@@ -684,15 +684,15 @@ public class MenuBar extends JMenuBar {
 		return helpGoogleGroupRobocodeMenuItem;
 	}
 
-	private JMenuItem getHelpRobocodeRepositoryMenuItem() {
-		if (helpRobocodeRepositoryMenuItem == null) {
-			helpRobocodeRepositoryMenuItem = new JMenuItem();
-			helpRobocodeRepositoryMenuItem.setText("Robocode Repository");
-			helpRobocodeRepositoryMenuItem.setMnemonic('R');
-			helpRobocodeRepositoryMenuItem.setDisplayedMnemonicIndex(9);
-			helpRobocodeRepositoryMenuItem.addActionListener(eventHandler);
+	private JMenuItem getHelpRoboRumbleMenuItem() {
+		if (helpRoboRumbleMenuItem == null) {
+			helpRoboRumbleMenuItem = new JMenuItem();
+			helpRoboRumbleMenuItem.setText("RoboRumble");
+			helpRoboRumbleMenuItem.setMnemonic('R');
+			helpRoboRumbleMenuItem.setDisplayedMnemonicIndex(9);
+			helpRoboRumbleMenuItem.addActionListener(eventHandler);
 		}
-		return helpRobocodeRepositoryMenuItem;
+		return helpRoboRumbleMenuItem;
 	}
 
 	private JMenuItem getOptionsFitWindowMenuItem() {
@@ -873,8 +873,8 @@ public class MenuBar extends JMenuBar {
 		windowManager.showGoogleGroupRobocode();
 	}
 
-	private void helpRobocodeRepositoryActionPerformed() {
-		windowManager.showRobocodeRepository();
+	private void helpRoboRumbleActionPerformed() {
+		windowManager.showRoboRumble();
 	}
 
 	private void optionsFitWindowActionPerformed() {

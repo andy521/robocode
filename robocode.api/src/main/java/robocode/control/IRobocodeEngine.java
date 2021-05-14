@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode.control;
 
@@ -75,7 +75,7 @@ public interface IRobocodeEngine {
 	 * Returns a selection of robots available from the local robot repository
 	 * of Robocode. These robots must exists in the /robocode/robots directory,
 	 * and must be compiled in advance, before these robot are returned with this method.
-	 * <p/>
+	 * <p>
 	 * Notice: If a specified robot cannot be found in the repository, it will
 	 * not be returned in the array of robots returned by this method.
 	 *
@@ -132,6 +132,7 @@ public interface IRobocodeEngine {
 	 * @since 1.7.1.2
 	 */
 	void runBattle(BattleSpecification battleSpecification, String initialPositions, boolean waitTillOver);
+	void runBattle(BattleSpecification battleSpecification, String initialPositions, boolean waitTillOver, boolean enableRecording);
 
 	/**
 	 * Will block caller until current battle is over.
@@ -142,9 +143,22 @@ public interface IRobocodeEngine {
 	void waitTillBattleOver();
 
 	/**
-	 * Aborts the current battle if it is running.
+	 * Aborts the current battle if it is running and waits for the end.
 	 *
 	 * @see #runBattle(robocode.control.BattleSpecification)
 	 */
 	void abortCurrentBattle();
+
+	/**
+	 * Aborts the current battle if it is running.
+	 *
+	 * @see #runBattle(robocode.control.BattleSpecification)
+	 * @param waitTillEnd will block caller until the battle is over
+	 */
+	void abortCurrentBattle(boolean waitTillEnd);
+
+	/**
+	 * Saves screenshot to disk, if the UI is initialized
+	 */
+	void takeScreenshot();
 }

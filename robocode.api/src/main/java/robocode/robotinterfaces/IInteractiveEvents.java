@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode.robotinterfaces;
 
@@ -28,7 +28,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when a key has been pressed.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * key events.
 	 *
@@ -42,7 +42,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when a key has been released.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * key events.
 	 *
@@ -56,7 +56,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when a key has been typed (pressed and released).
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * key events.
 	 *
@@ -71,7 +71,7 @@ public interface IInteractiveEvents {
 	/**
 	 * This method is called when a mouse button has been clicked (pressed and
 	 * released).
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *
@@ -90,7 +90,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when the mouse has entered the battle view.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *
@@ -109,7 +109,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when the mouse has exited the battle view.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *
@@ -128,7 +128,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when a mouse button has been pressed.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *
@@ -147,7 +147,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when a mouse button has been released.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *
@@ -166,7 +166,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when the mouse has been moved.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *
@@ -186,7 +186,7 @@ public interface IInteractiveEvents {
 	/**
 	 * This method is called when a mouse button has been pressed and then
 	 * dragged.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *
@@ -205,7 +205,7 @@ public interface IInteractiveEvents {
 
 	/**
 	 * This method is called when the mouse wheel has been rotated.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Interactive} robot for an example of how to use
 	 * mouse events.
 	 *

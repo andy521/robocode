@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -17,7 +17,7 @@ package robocode;
  *   addCustomEvent(
  *       new Condition("triggerhit") {
  *           public boolean test() {
- *               return (getEnergy() <= trigger);
+ *               return (getEnergy() &lt;= trigger);
  *           };
  *       }
  *   );
@@ -129,7 +129,7 @@ public abstract class Condition {
 	 * The game will call your test() function, and take action if it returns
 	 * {@code true}. This is valid for both {@link AdvancedRobot#waitFor} and
 	 * {@link AdvancedRobot#addCustomEvent}.
-	 * <p/>
+	 * <p>
 	 * You may not take any actions inside of test().
 	 *
 	 * @return {@code true} if the condition has been met, {@code false}

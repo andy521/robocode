@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -139,10 +139,10 @@ public final class Rules {
 	public static final double ROBOT_HIT_DAMAGE = 0.6;
 
 	/**
-	 * The amount of bonus given when a robot moving forward hits an opponent
-	 * robot (ramming), which is 1.2 energy points.
+	 * The amount of bonus damage dealt by a robot ramming an opponent by moving forward into it,
+	 * which is 2 x {@link #ROBOT_HIT_DAMAGE} = 1.2 energy points.
 	 */
-	public static final double ROBOT_HIT_BONUS = 1.2;
+	public static final double ROBOT_HIT_BONUS = 2 * ROBOT_HIT_DAMAGE;
 
 	/**
 	 * Returns the turn rate of a robot given a specific velocity measured in

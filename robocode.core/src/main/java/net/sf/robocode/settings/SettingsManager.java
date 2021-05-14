@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.settings;
 
@@ -28,7 +28,6 @@ import java.util.List;
  * @author Flemming N. Larsen (contributor)
  * @author Nathaniel Troutman (contributor)
  */
-// TODO ZAMO, refactor, split by modules
 public class SettingsManager implements ISettingsManager {
 	// Default SFX files
 	private final static String
@@ -97,8 +96,9 @@ public class SettingsManager implements ISettingsManager {
 			optionsCommonAppendWhenSavingResults = true,
 			optionsCommonDontHideRankings = true,
 			optionsCommonEnableAutoRecording = false,
-			optionsCommonAutoRecordingXML = false,
 			optionsCommonEnableReplayRecording = false;
+
+	private String optionsCommonRecordingFormat = "bin";
 
 	// Team Options
 	private boolean optionsTeamShowTeamRobots = false;
@@ -615,8 +615,8 @@ public class SettingsManager implements ISettingsManager {
 		return optionsCommonEnableAutoRecording;
 	}
 
-	public boolean getOptionsCommonAutoRecordingXML() {
-		return optionsCommonAutoRecordingXML;
+	public String getOptionsCommonRecordingFormat() {
+		return optionsCommonRecordingFormat;
 	}
 
 	public void setOptionsCommonEnableAutoRecording(boolean enable) {
@@ -624,9 +624,9 @@ public class SettingsManager implements ISettingsManager {
 		props.setProperty(OPTIONS_COMMON_ENABLE_AUTO_RECORDING, "" + enable);
 	}
 
-	public void setOptionsCommonEnableAutoRecordingXML(boolean enable) {
-		this.optionsCommonAutoRecordingXML = enable;
-		props.setProperty(OPTIONS_COMMON_AUTO_RECORDING_XML, "" + enable);
+	public void setOptionsCommonRecordingFormat(String value) {
+		this.optionsCommonRecordingFormat = value;
+		props.setProperty(OPTIONS_COMMON_RECORDING_FORMAT, value);
 	}
 
 	public void setOptionsCommonNotifyAboutNewBetaVersions(boolean enable) {
@@ -720,7 +720,7 @@ public class SettingsManager implements ISettingsManager {
 		optionsViewPreventSpeedupWhenMinimized = Boolean.valueOf(
 				props.getProperty(OPTIONS_VIEW_PREVENT_SPEEDUP_WHEN_MINIMIZED, "false"));
 
-		optionsBattleDesiredTPS = Integer.parseInt(props.getProperty(OPTIONS_BATTLE_DESIREDTPS, "30"));
+		optionsBattleDesiredTPS = Integer.parseInt(System.getProperty(OPTIONS_BATTLE_DESIREDTPS, props.getProperty(OPTIONS_BATTLE_DESIREDTPS, "30")));
 
 		// set methods are used here in order to set the rendering hints, which must be rebuild
 		setOptionsRenderingAntialiasing(Integer.parseInt(props.getProperty(OPTIONS_RENDERING_ANTIALIASING, "0")));
@@ -743,7 +743,8 @@ public class SettingsManager implements ISettingsManager {
 		optionsSoundEnableMixerVolume = Boolean.valueOf(props.getProperty(OPTIONS_SOUND_ENABLEMIXERVOLUME, "true"));
 		optionsSoundEnableMixerPan = Boolean.valueOf(props.getProperty(OPTIONS_SOUND_ENABLEMIXERPAN, "true"));
 
-		optionsDevelopmentPaths = fromCommaSeparatedString(props.getProperty(OPTIONS_DEVELOPMENT_PATH, ""));
+
+		optionsDevelopmentPaths = fromCommaSeparatedString(System.getProperty(OPTIONS_DEVELOPMENT_PATH, props.getProperty(OPTIONS_DEVELOPMENT_PATH)));
 		optionsExcludedDevelopmentPaths = fromCommaSeparatedString(
 				props.getProperty(OPTIONS_DEVELOPMENT_PATH_EXCLUDED, ""));
 
@@ -754,10 +755,10 @@ public class SettingsManager implements ISettingsManager {
 				props.getProperty(OPTIONS_COMMON_APPEND_WHEN_SAVING_RESULTS, "true"));
 		optionsCommonDontHideRankings = Boolean.valueOf(props.getProperty(OPTIONS_COMMON_DONT_HIDE_RANKINGS, "true"));
 		optionsCommonEnableReplayRecording = Boolean.valueOf(
-				props.getProperty(OPTIONS_COMMON_ENABLE_REPLAY_RECORDING, "false"));
+				System.getProperty(OPTIONS_COMMON_ENABLE_REPLAY_RECORDING, props.getProperty(OPTIONS_COMMON_ENABLE_REPLAY_RECORDING, "false")));
 		optionsCommonEnableAutoRecording = Boolean.valueOf(
-				props.getProperty(OPTIONS_COMMON_ENABLE_AUTO_RECORDING, "false"));
-		optionsCommonAutoRecordingXML = Boolean.valueOf(props.getProperty(OPTIONS_COMMON_AUTO_RECORDING_XML, "false"));
+				System.getProperty(OPTIONS_COMMON_ENABLE_AUTO_RECORDING, props.getProperty(OPTIONS_COMMON_ENABLE_AUTO_RECORDING, "false")));
+		optionsCommonRecordingFormat = System.getProperty(OPTIONS_COMMON_RECORDING_FORMAT, props.getProperty(OPTIONS_COMMON_RECORDING_FORMAT, "bin"));
 
 		optionsTeamShowTeamRobots = Boolean.valueOf(props.getProperty(OPTIONS_TEAM_SHOWTEAMROBOTS, "false"));
 

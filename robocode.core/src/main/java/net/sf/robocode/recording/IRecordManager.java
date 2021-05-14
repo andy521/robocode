@@ -1,15 +1,19 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.recording;
 
 
 import net.sf.robocode.battle.events.BattleEventDispatcher;
 import net.sf.robocode.serialization.SerializableOptions;
+import robocode.control.snapshot.ITurnSnapshot;
+
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**
@@ -18,12 +22,23 @@ import net.sf.robocode.serialization.SerializableOptions;
  */
 public interface IRecordManager {
 
-	void attachRecorder(BattleEventDispatcher battleEventDispatcher);
-	void detachRecorder();
+    @FunctionalInterface
+    interface CheckedConsumer<T> {
+        void accept(T t) throws IOException, ClassNotFoundException;
+    }
 
-	void saveRecord(String fileName, BattleRecordFormat format, SerializableOptions options);
 
-	void loadRecord(String fileName, BattleRecordFormat format);
+    void attachRecorder(BattleEventDispatcher battleEventDispatcher);
 
-	boolean hasRecord();
+    void detachRecorder();
+
+    void saveRecord(String fileName, BattleRecordFormat format, SerializableOptions options);
+
+    void loadRecord(String fileName, BattleRecordFormat format);
+
+    void provideTurns(CheckedConsumer<ITurnSnapshot> writeTurn) throws IOException, ClassNotFoundException;
+
+    void generateCsvRecord(OutputStream fosResults, OutputStream fosRounds, OutputStream fosRobots, OutputStream fosBullets, SerializableOptions options, CheckedConsumer<ITurnSnapshot> extension) throws IOException, ClassNotFoundException;
+
+    boolean hasRecord();
 }

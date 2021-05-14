@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.peer;
 
@@ -28,12 +28,4 @@ public interface IRobotPeer {
 	ExecResults waitForBattleEndImpl(ExecCommands newCommands);
 
 	ExecResults executeImpl(ExecCommands newCommands);
-
-	void setupBuffer(ByteBuffer bidirectionalBuffer); // NO_UCD (unused code - used by the .NET plug-in)
-
-	void executeImplSerial() throws IOException; // NO_UCD (unused code - used by the .NET plug-in)
-
-	void waitForBattleEndImplSerial() throws IOException; // NO_UCD (unused code - used by the .NET plug-in)
-
-	void setupThread(); // NO_UCD (unused code - used by the .NET plug-in)
 }

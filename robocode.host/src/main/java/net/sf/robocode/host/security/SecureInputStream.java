@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host.security;
 
@@ -65,7 +65,7 @@ public class SecureInputStream extends java.io.InputStream {
 	 * because the end of the stream has been reached, the value -1 is returned.
 	 * This method blocks until input data is available, the end of the stream
 	 * is detected, or an exception is thrown.
-	 * <p/>
+	 * <p>
 	 * <p> A subclass must provide an implementation of this method.
 	 *
 	 * @return the next byte of data, or -1 if the end of the stream is reached.

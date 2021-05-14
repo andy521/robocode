@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -19,13 +19,13 @@ import java.util.Vector;
 /**
  * A more advanced type of robot than Robot that allows non-blocking calls,
  * custom events, and writes to the filesystem.
- * <p/>
+ * <p>
  * If you have not already, you should create a {@link Robot} first.
  *
- * @see <a target="_top" href="http://robocode.sourceforge.net">
+ * @see <a target="_top" href="https://robocode.sourceforge.io">
  *      robocode.sourceforge.net</a>
- * @see <a href="http://robocode.sourceforge.net/myfirstrobot/MyFirstRobot.html">
- *      Building your first robot<a>
+ * @see <a href="https://robocode.sourceforge.io/myfirstrobot/MyFirstRobot.html">
+ *      Building your first robot</a>
  *
  * @see JuniorRobot
  * @see Robot
@@ -44,7 +44,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns the distance remaining in the robot's current move measured in
 	 * pixels.
-	 * <p/>
+	 * <p>
 	 * This call returns both positive and negative values. Positive values
 	 * means that the robot is currently moving forwards. Negative values means
 	 * that the robot is currently moving backwards. If the returned value is 0,
@@ -69,7 +69,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Returns the angle remaining in the robots's turn, in degrees.
-	 * <p/>
+	 * <p>
 	 * This call returns both positive and negative values. Positive values
 	 * means that the robot is currently turning to the right. Negative values
 	 * means that the robot is currently turning to the left. If the returned
@@ -93,7 +93,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Returns the angle remaining in the gun's turn, in degrees.
-	 * <p/>
+	 * <p>
 	 * This call returns both positive and negative values. Positive values
 	 * means that the gun is currently turning to the right. Negative values
 	 * means that the gun is currently turning to the left. If the returned
@@ -117,7 +117,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Returns the angle remaining in the radar's turn, in degrees.
-	 * <p/>
+	 * <p>
 	 * This call returns both positive and negative values. Positive values
 	 * means that the radar is currently turning to the right. Negative values
 	 * means that the radar is currently turning to the left. If the returned
@@ -142,17 +142,17 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot to move ahead (forward) by distance measured in pixels
 	 * when the next execution takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * {@link #execute()} or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input, where
 	 * positive values means that the robot is set to move ahead, and negative
 	 * values means that the robot is set to move back. If 0 is given as input,
 	 * the robot will stop its movement, but will have to decelerate
 	 * till it stands still, and will thus not be able to stop its movement
 	 * immediately, but eventually.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the robot to move 50 pixels ahead
@@ -168,8 +168,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param distance the distance to move measured in pixels.
-	 *                 If {@code distance} > 0 the robot is set to move ahead.
-	 *                 If {@code distance} < 0 the robot is set to move back.
+	 *                 If {@code distance} &gt; 0 the robot is set to move ahead.
+	 *                 If {@code distance} &lt; 0 the robot is set to move back.
 	 *                 If {@code distance} = 0 the robot is set to stop its movement.
 	 * @see #ahead(double) ahead(double)
 	 * @see #back(double) back(double)
@@ -186,17 +186,17 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot to move back by distance measured in pixels when the next
 	 * execution takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * {@link #execute()} or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input, where
 	 * positive values means that the robot is set to move back, and negative
 	 * values means that the robot is set to move ahead. If 0 is given as input,
 	 * the robot will stop its movement, but will have to decelerate
 	 * till it stands still, and will thus not be able to stop its movement
 	 * immediately, but eventually.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the robot to move 50 pixels back
@@ -212,8 +212,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param distance the distance to move measured in pixels.
-	 *                 If {@code distance} > 0 the robot is set to move back.
-	 *                 If {@code distance} < 0 the robot is set to move ahead.
+	 *                 If {@code distance} &gt; 0 the robot is set to move back.
+	 *                 If {@code distance} &lt; 0 the robot is set to move ahead.
 	 *                 If {@code distance} = 0 the robot is set to stop its movement.
 	 * @see #back(double) back(double)
 	 * @see #ahead(double) ahead(double)
@@ -230,14 +230,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's body to turn left by degrees when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the robot to turn 180 degrees to the left
@@ -253,8 +253,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's body to the left.
-	 *                If {@code degrees} > 0 the robot is set to turn left.
-	 *                If {@code degrees} < 0 the robot is set to turn right.
+	 *                If {@code degrees} &gt; 0 the robot is set to turn left.
+	 *                If {@code degrees} &lt; 0 the robot is set to turn right.
 	 *                If {@code degrees} = 0 the robot is set to stop turning.
 	 * @see #setTurnLeftRadians(double) setTurnLeftRadians(double)
 	 * @see #turnLeft(double) turnLeft(double)
@@ -275,14 +275,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's body to turn right by degrees when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the robot to turn 180 degrees to the right
@@ -298,8 +298,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's body to the right.
-	 *                If {@code degrees} > 0 the robot is set to turn right.
-	 *                If {@code degrees} < 0 the robot is set to turn left.
+	 *                If {@code degrees} &gt; 0 the robot is set to turn right.
+	 *                If {@code degrees} &lt; 0 the robot is set to turn left.
 	 *                If {@code degrees} = 0 the robot is set to stop turning.
 	 * @see #setTurnRightRadians(double) setTurnRightRadians(double)
 	 * @see #turnRight(double) turnRight(double)
@@ -320,29 +320,29 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the gun to fire a bullet when the next execution takes place.
 	 * The bullet will travel in the direction the gun is pointing.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power is an amount of energy that will be taken from
 	 * the robot's energy. Hence, the more power you want to spend on the
 	 * bullet, the more energy is taken from your robot.
-	 * <p/>
+	 * <p>
 	 * The bullet will do (4 * power) damage if it hits another robot. If power
 	 * is greater than 1, it will do an additional 2 * (power - 1) damage.
 	 * You will get (3 * power) back if you hit the other robot. You can call
 	 * Rules#getBulletDamage(double)} for getting the damage that a
 	 * bullet with a specific bullet power will do.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power should be between
 	 * {@link Rules#MIN_BULLET_POWER} and {@link Rules#MAX_BULLET_POWER}.
-	 * <p/>
+	 * <p>
 	 * Note that the gun cannot fire if the gun is overheated, meaning that
-	 * {@link #getGunHeat()} returns a value > 0.
-	 * <p/>
+	 * {@link #getGunHeat()} returns a value &gt; 0.
+	 * <p>
 	 * An event is generated when the bullet hits a robot, wall, or another
 	 * bullet.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Fire a bullet with maximum power if the gun is ready
@@ -375,34 +375,34 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the gun to fire a bullet when the next execution takes place.
 	 * The bullet will travel in the direction the gun is pointing.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power is an amount of energy that will be taken from
 	 * the robot's energy. Hence, the more power you want to spend on the
 	 * bullet, the more energy is taken from your robot.
-	 * <p/>
+	 * <p>
 	 * The bullet will do (4 * power) damage if it hits another robot. If power
 	 * is greater than 1, it will do an additional 2 * (power - 1) damage.
 	 * You will get (3 * power) back if you hit the other robot. You can call
 	 * {@link Rules#getBulletDamage(double)} for getting the damage that a
 	 * bullet with a specific bullet power will do.
-	 * <p/>
+	 * <p>
 	 * The specified bullet power should be between
 	 * {@link Rules#MIN_BULLET_POWER} and {@link Rules#MAX_BULLET_POWER}.
-	 * <p/>
+	 * <p>
 	 * Note that the gun cannot fire if the gun is overheated, meaning that
-	 * {@link #getGunHeat()} returns a value > 0.
-	 * <p/>
+	 * {@link #getGunHeat()} returns a value &gt; 0.
+	 * <p>
 	 * A event is generated when the bullet hits a robot
 	 * ({@link BulletHitEvent}), wall ({@link BulletMissedEvent}), or another
 	 * bullet ({@link BulletHitBulletEvent}).
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   Bullet bullet = null;
-	 * <p/>
+	 *
 	 *   // Fire a bullet with maximum power if the gun is ready
 	 *   if (getGunHeat() == 0) {
 	 *       bullet = setFireBullet(Rules.MAX_BULLET_POWER);
@@ -443,13 +443,13 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Registers a custom event to be called when a condition is met.
 	 * When you are finished with your condition or just want to remove it you
 	 * must call {@link #removeCustomEvent(Condition)}.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Create the condition for our custom event
 	 *   Condition triggerHitCondition = new Condition("triggerhit") {
 	 *       public boolean test() {
-	 *           return (getEnergy() <= trigger);
+	 *           return (getEnergy() &lt;= trigger);
 	 *       }
 	 *   }
 	 *
@@ -477,13 +477,13 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Removes a custom event that was previously added by calling
 	 * {@link #addCustomEvent(Condition)}.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Create the condition for our custom event
 	 *   Condition triggerHitCondition = new Condition("triggerhit") {
 	 *       public boolean test() {
-	 *           return (getEnergy() <= trigger);
+	 *           return (getEnergy() &lt;= trigger);
 	 *       }
 	 *   }
 	 *
@@ -530,19 +530,19 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Executes any pending actions, or continues executing actions that are
 	 * in process. This call returns after the actions have been started.
-	 * <p/>
+	 * <p>
 	 * Note that advanced robots <em>must</em> call this function in order to
 	 * execute pending set* calls like e.g. {@link #setAhead(double)},
 	 * {@link #setFire(double)}, {@link #setTurnLeft(double)} etc. Otherwise,
 	 * these calls will never get executed.
-	 * <p/>
+	 * <p>
 	 * In this example the robot will move while turning:
 	 * <pre>
 	 *   setTurnRight(90);
 	 *   setAhead(100);
 	 *   execute();
 	 *
-	 *   while (getDistanceRemaining() > 0 && getTurnRemaining() > 0) {
+	 *   while (getDistanceRemaining() &gt; 0 &amp;&amp; getTurnRemaining() &gt; 0) {
 	 *       execute();
 	 *   }
 	 * </pre>
@@ -558,7 +558,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns a vector containing all events currently in the robot's queue.
 	 * You might, for example, call this while processing another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (Event event : getAllEvents()) {
@@ -592,7 +592,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Returns a vector containing all BulletHitBulletEvents currently in the
 	 * robot's queue. You might, for example, call this while processing another
 	 * event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (BulletHitBulletEvent event : getBulletHitBulletEvents()) {
@@ -617,7 +617,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns a vector containing all BulletHitEvents currently in the robot's
 	 * queue. You might, for example, call this while processing another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (BulletHitEvent event: getBulletHitEvents()) {
@@ -643,7 +643,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Returns a vector containing all BulletMissedEvents currently in the
 	 * robot's queue. You might, for example, call this while processing another
 	 * event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (BulletMissedEvent event : getBulletMissedEvents()) {
@@ -669,7 +669,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Returns a file representing a data directory for the robot, which can be
 	 * written to using {@link RobocodeFileOutputStream} or
 	 * {@link RobocodeFileWriter}.
-	 * <p/>
+	 * <p>
 	 * The system will automatically create the directory for you, so you do not
 	 * need to create it by yourself.
 	 *
@@ -689,13 +689,13 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns a file in your data directory that you can write to using
 	 * {@link RobocodeFileOutputStream} or {@link RobocodeFileWriter}.
-	 * <p/>
+	 * <p>
 	 * The system will automatically create the directory for you, so you do not
 	 * need to create it by yourself.
-	 * <p/>
+	 * <p>
 	 * Please notice that the max. size of your data file is set to 200000
 	 * (~195 KB).
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.SittingDuck} to see an example of how to use this
 	 * method.
 	 *
@@ -734,12 +734,12 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Returns the current priority of a class of events.
 	 * An event priority is a value from 0 - 99. The higher value, the higher
 	 * priority.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   int myHitRobotPriority = getEventPriority("HitRobotEvent");
 	 * </pre>
-	 * <p/>
+	 * <p>
 	 * The default priorities are, from highest to lowest:
 	 * <pre>
 	 *   {@link RoundEndedEvent}:      100 (reserved)
@@ -778,7 +778,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Returns a vector containing all HitByBulletEvents currently in the
 	 * robot's queue. You might, for example, call this while processing
 	 * another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (HitByBulletEvent event : getHitByBulletEvents()) {
@@ -803,7 +803,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns a vector containing all HitRobotEvents currently in the robot's
 	 * queue. You might, for example, call this while processing another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (HitRobotEvent event : getHitRobotEvents()) {
@@ -828,7 +828,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns a vector containing all HitWallEvents currently in the robot's
 	 * queue. You might, for example, call this while processing another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (HitWallEvent event : getHitWallEvents()) {
@@ -853,7 +853,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns a vector containing all RobotDeathEvents currently in the robot's
 	 * queue. You might, for example, call this while processing another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (RobotDeathEvent event : getRobotDeathEvents()) {
@@ -879,7 +879,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Returns a vector containing all ScannedRobotEvents currently in the
 	 * robot's queue. You might, for example, call this while processing another
 	 * event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (ScannedRobotEvent event : getScannedRobotEvents()) {
@@ -904,7 +904,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns a vector containing all StatusEvents currently in the robot's
 	 * queue. You might, for example, call this while processing another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (StatusEvent event : getStatusEvents()) {
@@ -929,7 +929,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Checks if the gun is set to adjust for the robot turning, i.e. to turn
 	 * independent from the robot's body turn.
-	 * <p/>
+	 * <p>
 	 * This call returns {@code true} if the gun is set to turn independent of
 	 * the turn of the robot's body. Otherwise, {@code false} is returned,
 	 * meaning that the gun is set to turn with the robot's body turn.
@@ -952,7 +952,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Checks if the radar is set to adjust for the robot turning, i.e. to turn
 	 * independent from the robot's body turn.
-	 * <p/>
+	 * <p>
 	 * This call returns {@code true} if the radar is set to turn independent of
 	 * the turn of the robot. Otherwise, {@code false} is returned, meaning that
 	 * the radar is set to turn with the robot's turn.
@@ -975,7 +975,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Checks if the radar is set to adjust for the gun turning, i.e. to turn
 	 * independent from the gun's turn.
-	 * <p/>
+	 * <p>
 	 * This call returns {@code true} if the radar is set to turn independent of
 	 * the turn of the gun. Otherwise, {@code false} is returned, meaning that
 	 * the radar is set to turn with the gun's turn.
@@ -1002,42 +1002,43 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Sets the priority of a class of events.
-	 * <p/>
+	 * <p>
 	 * Events are sent to the onXXX handlers in order of priority.
 	 * Higher priority events can interrupt lower priority events.
 	 * For events with the same priority, newer events are always sent first.
 	 * Valid priorities are 0 - 99, where 100 is reserved and 80 is the default
-	 * priority.
-	 * <p/>
+	 * event priority. Note that lower values means higher priority.
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   setEventPriority("RobotDeathEvent", 15);
 	 * </pre>
-	 * <p/>
-	 * The default priorities are, from highest to lowest:
+	 * <p>
+	 * The default event priorities are listed here, where the events with
+	 * highest priority are listed first:
 	 * <pre>
-	 * 	 {@link WinEvent}:             100 (reserved)
-	 * 	 {@link SkippedTurnEvent}:     100 (reserved)
-	 *   {@link StatusEvent}:           99
-	 * 	 {@link CustomEvent}:           80
-	 * 	 {@link MessageEvent}:          75
-	 * 	 {@link RobotDeathEvent}:       70
-	 * 	 {@link BulletMissedEvent}:     60
-	 * 	 {@link BulletHitBulletEvent}:  55
-	 * 	 {@link BulletHitEvent}:        50
-	 * 	 {@link HitByBulletEvent}:      40
-	 * 	 {@link HitWallEvent}:          30
-	 * 	 {@link HitRobotEvent}:         20
-	 * 	 {@link ScannedRobotEvent}:     10
+	 * 	 {@link DeathEvent}:            -1 (cannot be changed)
 	 *   {@link PaintEvent}:             5
-	 * 	 {@link DeathEvent}:            -1 (reserved)
+	 * 	 {@link ScannedRobotEvent}:     10
+	 * 	 {@link HitRobotEvent}:         20
+	 * 	 {@link HitWallEvent}:          30
+	 * 	 {@link HitByBulletEvent}:      40
+	 * 	 {@link BulletHitEvent}:        50
+	 * 	 {@link BulletHitBulletEvent}:  55
+	 * 	 {@link BulletMissedEvent}:     60
+	 * 	 {@link RobotDeathEvent}:       70
+	 * 	 {@link MessageEvent}:          75
+	 * 	 {@link CustomEvent}:           80
+	 *   {@link StatusEvent}:           99
+	 * 	 {@link SkippedTurnEvent}:     100 (cannot be changed)
+	 * 	 {@link WinEvent}:             100 (cannot be changed)
 	 * </pre>
-	 * <p/>
+	 * Hence, DeathEvent has the highest priority, and the WinEvent the lowest priority.
+	 * <p>
 	 * Note that you cannot change the priority for events with the special
-	 * priority value -1 or 100 (reserved) as these event are system events.
+	 * priority value -1 and priority value 100 as these event are reserved system events.
 	 * Also note that you cannot change the priority of CustomEvent.
-	 * Instead you must change the priority of the condition(s) for your custom
-	 * event(s).
+	 * Instead you must change the priority of the condition(s) for your custom event(s).
 	 *
 	 * @param eventClass the name of the event class (string) to set the
 	 *                   priority for
@@ -1059,8 +1060,9 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Call this during an event handler to allow new events of the same
 	 * priority to restart the event handler.
-	 * <p/>
+	 *
 	 * <p>Example:
+	 * </p>
 	 * <pre>
 	 *   public void onScannedRobot(ScannedRobotEvent e) {
 	 *       fire(1);
@@ -1132,7 +1134,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot to resume the movement stopped by {@link #stop() stop()}
 	 * or {@link #setStop()}, if any.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * {@link #execute()} or take an action that executes.
 	 *
@@ -1155,10 +1157,10 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * This call is identical to {@link #stop() stop()}, but returns immediately, and
 	 * will not execute until you call {@link #execute()} or take an action that
 	 * executes.
-	 * <p/>
+	 * <p>
 	 * If there is already movement saved from a previous stop, this will have
 	 * no effect.
-	 * <p/>
+	 * <p>
 	 * This call is equivalent to calling {@code setStop(false)};
 	 *
 	 * @see #stop() stop()
@@ -1176,7 +1178,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * This call is identical to {@link #stop(boolean) stop(boolean)}, but
 	 * returns immediately, and will not execute until you call
 	 * {@link #execute()} or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * If there is already movement saved from a previous stop, you can
 	 * overwrite it by calling {@code setStop(true)}.
 	 *
@@ -1200,14 +1202,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's gun to turn left by degrees when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the gun to turn 180 degrees to the left
@@ -1223,8 +1225,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's gun to the left.
-	 *                If {@code degrees} > 0 the robot's gun is set to turn left.
-	 *                If {@code degrees} < 0 the robot's gun is set to turn right.
+	 *                If {@code degrees} &gt; 0 the robot's gun is set to turn left.
+	 *                If {@code degrees} &lt; 0 the robot's gun is set to turn right.
 	 *                If {@code degrees} = 0 the robot's gun is set to stop turning.
 	 * @see #setTurnGunLeftRadians(double) setTurnGunLeftRadians(double)
 	 * @see #turnGunLeft(double) turnGunLeft(double)
@@ -1246,14 +1248,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's gun to turn right by degrees when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the gun to turn 180 degrees to the right
@@ -1269,8 +1271,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's gun to the right.
-	 *                If {@code degrees} > 0 the robot's gun is set to turn right.
-	 *                If {@code degrees} < 0 the robot's gun is set to turn left.
+	 *                If {@code degrees} &gt; 0 the robot's gun is set to turn right.
+	 *                If {@code degrees} &lt; 0 the robot's gun is set to turn left.
 	 *                If {@code degrees} = 0 the robot's gun is set to stop turning.
 	 * @see #setTurnGunRightRadians(double) setTurnGunRightRadians(double)
 	 * @see #turnGunRight(double) turnGunRight(double)
@@ -1292,14 +1294,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's radar to turn left by degrees when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the radar to turn 180 degrees to the left
@@ -1315,8 +1317,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's radar to the left.
-	 *                If {@code degrees} > 0 the robot's radar is set to turn left.
-	 *                If {@code degrees} < 0 the robot's radar is set to turn right.
+	 *                If {@code degrees} &gt; 0 the robot's radar is set to turn left.
+	 *                If {@code degrees} &lt; 0 the robot's radar is set to turn right.
 	 *                If {@code degrees} = 0 the robot's radar is set to stop turning.
 	 * @see #setTurnRadarLeftRadians(double) setTurnRadarLeftRadians(double)
 	 * @see #turnRadarLeft(double) turnRadarLeft(double)
@@ -1339,14 +1341,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's radar to turn right by degrees when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the radar to turn 180 degrees to the right
@@ -1362,8 +1364,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param degrees the amount of degrees to turn the robot's radar to the right.
-	 *                If {@code degrees} > 0 the robot's radar is set to turn right.
-	 *                If {@code degrees} < 0 the robot's radar is set to turn left.
+	 *                If {@code degrees} &gt; 0 the robot's radar is set to turn right.
+	 *                If {@code degrees} &lt; 0 the robot's radar is set to turn left.
 	 *                If {@code degrees} = 0 the robot's radar is set to stop turning.
 	 * @see #setTurnRadarRightRadians(double) setTurnRadarRightRadians(double)
 	 * @see #turnRadarRight(double) turnRadarRight(double)
@@ -1386,9 +1388,9 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Does not return until a condition is met, i.e. when a
 	 * {@link Condition#test()} returns {@code true}.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately.
-	 * <p/>
+	 * <p>
 	 * See the {@code sample.Crazy} robot for how this method can be used.
 	 *
 	 * @param condition the condition that must be met before this call returns
@@ -1405,7 +1407,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * This method is called if your robot dies.
-	 * <p/>
+	 * <p>
 	 * You should override it in your robot if you want to be informed of this
 	 * event. Actions will have no effect if called from this section. The
 	 * intent is to allow you to perform calculations or print something out
@@ -1426,7 +1428,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns the direction that the robot's body is facing, in radians.
 	 * The value returned will be between 0 and 2 * PI (is excluded).
-	 * <p/>
+	 * <p>
 	 * Note that the heading in Robocode is like a compass, where 0 means North,
 	 * PI / 2 means East, PI means South, and 3 * PI / 2 means West.
 	 *
@@ -1442,14 +1444,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's body to turn left by radians when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the robot to turn 180 degrees to the left
@@ -1465,8 +1467,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's body to the left.
-	 *                If {@code radians} > 0 the robot is set to turn left.
-	 *                If {@code radians} < 0 the robot is set to turn right.
+	 *                If {@code radians} &gt; 0 the robot is set to turn left.
+	 *                If {@code radians} &lt; 0 the robot is set to turn right.
 	 *                If {@code radians} = 0 the robot is set to stop turning.
 	 * @see AdvancedRobot#setTurnLeft(double) setTurnLeft(double)
 	 * @see #turnLeft(double)
@@ -1483,14 +1485,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's body to turn right by radians when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the robot to turn 180 degrees to the right
@@ -1506,8 +1508,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's body to the right.
-	 *                If {@code radians} > 0 the robot is set to turn right.
-	 *                If {@code radians} < 0 the robot is set to turn left.
+	 *                If {@code radians} &gt; 0 the robot is set to turn right.
+	 *                If {@code radians} &lt; 0 the robot is set to turn left.
 	 *                If {@code radians} = 0 the robot is set to stop turning.
 	 * @see AdvancedRobot#setTurnRight(double) setTurnRight(double)
 	 * @see #turnRight(double)
@@ -1523,14 +1525,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Immediately turns the robot's body to the left by radians.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the robot's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot 180 degrees to the left
@@ -1541,8 +1543,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's body to the left.
-	 *                If {@code radians} > 0 the robot will turn right.
-	 *                If {@code radians} < 0 the robot will turn left.
+	 *                If {@code radians} &gt; 0 the robot will turn right.
+	 *                If {@code radians} &lt; 0 the robot will turn left.
 	 *                If {@code radians} = 0 the robot will not turn, but execute.
 	 * @see #turnLeft(double)
 	 * @see #turnRight(double)
@@ -1565,11 +1567,11 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Immediately turns the robot's body to the right by radians.
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the robot's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's body is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot 180 degrees to the right
@@ -1580,8 +1582,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's body to the right.
-	 *                If {@code radians} > 0 the robot will turn right.
-	 *                If {@code radians} < 0 the robot will turn left.
+	 *                If {@code radians} &gt; 0 the robot will turn right.
+	 *                If {@code radians} &lt; 0 the robot will turn left.
 	 *                If {@code radians} = 0 the robot will not turn, but execute.
 	 * @see #turnRight(double)
 	 * @see #turnLeft(double)
@@ -1603,7 +1605,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns the direction that the robot's gun is facing, in radians.
 	 * The value returned will be between 0 and 2 * PI (is excluded).
-	 * <p/>
+	 * <p>
 	 * Note that the heading in Robocode is like a compass, where 0 means North,
 	 * PI / 2 means East, PI means South, and 3 * PI / 2 means West.
 	 *
@@ -1619,7 +1621,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Returns the direction that the robot's radar is facing, in radians.
 	 * The value returned will be between 0 and 2 * PI (is excluded).
-	 * <p/>
+	 * <p>
 	 * Note that the heading in Robocode is like a compass, where 0 means North,
 	 * PI / 2 means East, PI means South, and 3 * PI / 2 means West.
 	 *
@@ -1635,14 +1637,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's gun to turn left by radians when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the gun to turn 180 degrees to the left
@@ -1658,8 +1660,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's gun to the left.
-	 *                If {@code radians} > 0 the robot's gun is set to turn left.
-	 *                If {@code radians} < 0 the robot's gun is set to turn right.
+	 *                If {@code radians} &gt; 0 the robot's gun is set to turn left.
+	 *                If {@code radians} &lt; 0 the robot's gun is set to turn right.
 	 *                If {@code radians} = 0 the robot's gun is set to stop turning.
 	 * @see AdvancedRobot#setTurnGunLeft(double) setTurnGunLeft(double)
 	 * @see #turnGunLeft(double)
@@ -1677,14 +1679,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's gun to turn right by radians when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the gun to turn 180 degrees to the right
@@ -1700,8 +1702,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's gun to the right.
-	 *                If {@code radians} > 0 the robot's gun is set to turn left.
-	 *                If {@code radians} < 0 the robot's gun is set to turn right.
+	 *                If {@code radians} &gt; 0 the robot's gun is set to turn left.
+	 *                If {@code radians} &lt; 0 the robot's gun is set to turn right.
 	 *                If {@code radians} = 0 the robot's gun is set to stop turning.
 	 * @see AdvancedRobot#setTurnGunRight(double) setTurnGunRight(double)
 	 * @see #turnGunRight(double)
@@ -1719,14 +1721,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's radar to turn left by radians when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the radar to turn 180 degrees to the left
@@ -1742,8 +1744,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's radar to the left.
-	 *                If {@code radians} > 0 the robot's radar is set to turn left.
-	 *                If {@code radians} < 0 the robot's radar is set to turn right.
+	 *                If {@code radians} &gt; 0 the robot's radar is set to turn left.
+	 *                If {@code radians} &lt; 0 the robot's radar is set to turn right.
 	 *                If {@code radians} = 0 the robot's radar is set to stop turning.
 	 * @see AdvancedRobot#setTurnRadarLeft(double) setTurnRadarLeft(double)
 	 * @see #turnRadarLeft(double)
@@ -1762,14 +1764,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	/**
 	 * Sets the robot's radar to turn right by radians when the next execution
 	 * takes place.
-	 * <p/>
+	 * <p>
 	 * This call returns immediately, and will not execute until you call
 	 * execute() or take an action that executes.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Set the radar to turn 180 degrees to the right
@@ -1785,8 +1787,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's radar to the right.
-	 *                If {@code radians} > 0 the robot's radar is set to turn left.
-	 *                If {@code radians} < 0 the robot's radar is set to turn right.
+	 *                If {@code radians} &gt; 0 the robot's radar is set to turn left.
+	 *                If {@code radians} &lt; 0 the robot's radar is set to turn right.
 	 *                If {@code radians} = 0 the robot's radar is set to stop turning.
 	 * @see AdvancedRobot#setTurnRadarRight(double) setTurnRadarRight(double)
 	 * @see #turnRadarRight(double)
@@ -1804,14 +1806,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Immediately turns the robot's gun to the left by radians.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the gun's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's gun 180 degrees to the left
@@ -1822,8 +1824,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's gun to the left.
-	 *                If {@code radians} > 0 the robot's gun will turn left.
-	 *                If {@code radians} < 0 the robot's gun will turn right.
+	 *                If {@code radians} &gt; 0 the robot's gun will turn left.
+	 *                If {@code radians} &lt; 0 the robot's gun will turn right.
 	 *                If {@code radians} = 0 the robot's gun will not turn, but execute.
 	 * @see #turnGunLeft(double)
 	 * @see #turnGunRight(double)
@@ -1846,11 +1848,11 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Immediately turns the robot's gun to the right by radians.
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the gun's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's gun is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's gun 180 degrees to the right
@@ -1861,8 +1863,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's gun to the right.
-	 *                If {@code radians} > 0 the robot's gun will turn right.
-	 *                If {@code radians} < 0 the robot's gun will turn left.
+	 *                If {@code radians} &gt; 0 the robot's gun will turn right.
+	 *                If {@code radians} &lt; 0 the robot's gun will turn left.
 	 *                If {@code radians} = 0 the robot's gun will not turn, but execute.
 	 * @see #turnGunRight(double)
 	 * @see #turnGunLeft(double)
@@ -1883,14 +1885,14 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Immediately turns the robot's radar to the left by radians.
-	 * <p/>
+	 * <p>
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the radar's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn right
 	 * instead of left.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's radar 180 degrees to the left
@@ -1901,8 +1903,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's radar to the left.
-	 *                If {@code radians} > 0 the robot's radar will turn left.
-	 *                If {@code radians} < 0 the robot's radar will turn right.
+	 *                If {@code radians} &gt; 0 the robot's radar will turn left.
+	 *                If {@code radians} &lt; 0 the robot's radar will turn right.
 	 *                If {@code radians} = 0 the robot's radar will not turn, but execute.
 	 * @see #turnRadarLeft(double)
 	 * @see #turnRadarRight(double)
@@ -1926,11 +1928,11 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * Immediately turns the robot's radar to the right by radians.
 	 * This call executes immediately, and does not return until it is complete,
 	 * i.e. when the angle remaining in the radar's turn is 0.
-	 * <p/>
+	 * <p>
 	 * Note that both positive and negative values can be given as input,
 	 * where negative values means that the robot's radar is set to turn left
 	 * instead of right.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   // Turn the robot's radar 180 degrees to the right
@@ -1941,8 +1943,8 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 	 * </pre>
 	 *
 	 * @param radians the amount of radians to turn the robot's radar to the right.
-	 *                If {@code radians} > 0 the robot's radar will turn right.
-	 *                If {@code radians} < 0 the robot's radar will turn left.
+	 *                If {@code radians} &gt; 0 the robot's radar will turn right.
+	 *                If {@code radians} &lt; 0 the robot's radar will turn left.
 	 *                If {@code radians} = 0 the robot's radar will not turn, but execute.
 	 * @see #turnRadarRight(double)
 	 * @see #turnRadarLeft(double)
@@ -1964,7 +1966,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Returns the angle remaining in the gun's turn, in radians.
-	 * <p/>
+	 * <p>
 	 * This call returns both positive and negative values. Positive values
 	 * means that the gun is currently turning to the right. Negative values
 	 * means that the gun is currently turning to the left.
@@ -1982,7 +1984,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Returns the angle remaining in the radar's turn, in radians.
-	 * <p/>
+	 * <p>
 	 * This call returns both positive and negative values. Positive values
 	 * means that the radar is currently turning to the right. Negative values
 	 * means that the radar is currently turning to the left.
@@ -2000,7 +2002,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Returns the angle remaining in the robot's turn, in radians.
-	 * <p/>
+	 * <p>
 	 * This call returns both positive and negative values. Positive values
 	 * means that the robot is currently turning to the right. Negative values
 	 * means that the robot is currently turning to the left.
@@ -2018,7 +2020,7 @@ public class AdvancedRobot extends _AdvancedRadiansRobot implements IAdvancedRob
 
 	/**
 	 * Do not call this method!
-	 * <p/>
+	 * <p>
 	 * {@inheritDoc}
 	 */
 	public final IAdvancedEvents getAdvancedEventListener() {

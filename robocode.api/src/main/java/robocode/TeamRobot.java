@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -18,17 +18,33 @@ import java.util.Vector;
 
 
 /**
- * An advanced type of robot that supports sending messages between team
- * mates in a robot team.
- * <p/>
- * If you have not done already, you should create a {@link Robot} or
- * {@link AdvancedRobot} first.
+ * A TeamRobot is a robot that is made for battles between teams of robots.
+ * A robot team consists of one to several robots that are all a TeamRobot.
+ * A TeamRobot is an extension to the {@link AdvancedRobot} and provides
+ * support for sending messages between team members.
+ * <p>
+ * Besides the robots, a robot team is put together by defining a .team file
+ * that is a Java property file. The filename must be the name of the team
+ * like e.g. {@code MyFirstTeam.team}. And the .team file and team robots must
+ * exist in the same folder (package name). But you can let the Robocode UI
+ * help you create the team from the menu: Robot -&lt; 'Create a robot team'.
+ * <p>
+ * The .team file contains a comma-separated list of the full name of the team
+ * members:
+ * <pre>
+ * team.members=sampleteam.MyFirstLeader,sampleteam.MyFirstDroid
+ * </pre>
+ * With this example, two different robots are members (MyFirstLeader and
+ * MyFirstDroid). But you can include any TeamRobot you want.
+ * <p>
+ * If you have not done already, you should start by creating a {@link Robot} or
+ * {@link AdvancedRobot} before you make your first TeamRobot.
  *
- * @see JuniorRobot
- * @see Robot
- * @see AdvancedRobot
- * @see RateControlRobot
  * @see Droid
+ * @see AdvancedRobot
+ * @see Robot
+ * @see JuniorRobot
+ * @see RateControlRobot
  * @see BorderSentry
  *
  * @author Mathew A. Nelson (original)
@@ -39,7 +55,7 @@ public class TeamRobot extends AdvancedRobot implements ITeamRobot, ITeamEvents 
 
 	/**
 	 * Broadcasts a message to all teammates.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   public void run() {
@@ -65,7 +81,7 @@ public class TeamRobot extends AdvancedRobot implements ITeamRobot, ITeamEvents 
 	/**
 	 * Returns a vector containing all MessageEvents currently in the robot's
 	 * queue. You might, for example, call this while processing another event.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   for (MessageEvent e : getMessageEvents()) {
@@ -89,7 +105,7 @@ public class TeamRobot extends AdvancedRobot implements ITeamRobot, ITeamEvents 
 
 	/**
 	 * Do not call this method!
-	 * <p/>
+	 * <p>
 	 * {@inheritDoc}
 	 */
 	public final ITeamEvents getTeamEventListener() {
@@ -99,7 +115,7 @@ public class TeamRobot extends AdvancedRobot implements ITeamRobot, ITeamEvents 
 	/**
 	 * Returns the names of all teammates, or {@code null} there is no
 	 * teammates.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   public void run() {
@@ -130,7 +146,7 @@ public class TeamRobot extends AdvancedRobot implements ITeamRobot, ITeamEvents 
 
 	/**
 	 * Checks if a given robot name is the name of one of your teammates.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   public void onScannedRobot(ScannedRobotEvent e) {
@@ -163,7 +179,7 @@ public class TeamRobot extends AdvancedRobot implements ITeamRobot, ITeamEvents 
 
 	/**
 	 * Sends a message to one (or more) teammates.
-	 * <p/>
+	 * <p>
 	 * Example:
 	 * <pre>
 	 *   public void run() {

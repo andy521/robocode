@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -16,8 +16,6 @@ import robocode.robotinterfaces.IBasicRobot;
 import java.awt.*;
 import java.io.Serializable;
 
-
-// XXX Remember to update the .NET version whenever a change is made to this class!
 
 /**
  * The superclass of all Robocode events.
@@ -46,12 +44,12 @@ public abstract class Event implements Comparable<Event>, Serializable {
 	 * Compares this event to another event regarding precedence.
 	 * The event precedence is first and foremost determined by the event time,
 	 * secondly the event priority, and lastly specific event information.
-	 * <p/>
+	 * <p>
 	 * This method will first compare the time of each event. If the event time
 	 * is the same for both events, then this method compared the priority of
 	 * each event. If the event priorities are equals, then this method will
 	 * compare the two event based on specific event information.
-	 * <p/>
+	 * <p>
 	 * This method is called by the game in order to sort the event queue of a
 	 * robot to make sure the events are listed in chronological order.
 	 *

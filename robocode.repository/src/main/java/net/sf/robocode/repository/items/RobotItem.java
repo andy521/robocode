@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.repository.items;
 
@@ -290,20 +290,16 @@ public class RobotItem extends RobotSpecItem implements IRobotItem {
 			if (force) {
 				isValid = true;
 			}
-
-			// trying to guess all correct file locations
-			populate();
-
+			if (isValid) {
+				validateType(false);
+			}
 			this.lastModified = lastModified;
 			if (classURL == null) {
 				isValid = false;
 			}
 			loadProperties();
-			if (root.isJAR() && !isPropertiesLoaded) {
+			if (!isTeamRobot() && root.isJAR() && !isPropertiesLoaded) {
 				isValid = false;
-			}
-			if (isValid) {
-				validateType(false);
 			}
 			if (isValid) {
 				verifyName();
@@ -588,7 +584,7 @@ public class RobotItem extends RobotSpecItem implements IRobotItem {
 		return path;
 	}
 
-	public RobotSpecification createRobotSpecification(RobotSpecification battleRobotSpec, String teamId) {
+	public RobotSpecification createRobotSpecification(RobotSpecification battleRobotSpec, String teamName) {
 		RobotSpecification specification;
 
 		if (battleRobotSpec != null) {
@@ -596,8 +592,8 @@ public class RobotItem extends RobotSpecItem implements IRobotItem {
 		} else {
 			specification = createRobotSpecification();
 		}
-		if (teamId != null) {
-			HiddenAccess.setTeamId(specification, teamId);
+		if (teamName != null) {
+			HiddenAccess.setTeamName(specification, teamName);
 		}
 		return specification;
 	}

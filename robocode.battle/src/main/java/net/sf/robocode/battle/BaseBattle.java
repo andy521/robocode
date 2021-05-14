@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.battle;
 
@@ -184,7 +184,7 @@ public abstract class BaseBattle implements IBattle, Runnable {
 	 * to create a thread, starting the thread causes the object's
 	 * {@code run()} method to be called in that separately executing
 	 * thread.
-	 * <p/>
+	 * <p>
 	 * The general contract of the method {@code run()} is that it may
 	 * take any action whatsoever.
 	 *

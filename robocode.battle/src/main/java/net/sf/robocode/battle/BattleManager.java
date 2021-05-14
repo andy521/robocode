@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.battle;
 
@@ -21,6 +21,7 @@ import net.sf.robocode.recording.BattlePlayer;
 import net.sf.robocode.recording.IRecordManager;
 import net.sf.robocode.repository.IRepositoryManager;
 import net.sf.robocode.settings.ISettingsManager;
+import net.sf.robocode.ui.IWindowManager;
 import robocode.Event;
 import robocode.control.BattleSpecification;
 import robocode.control.RandomFactory;
@@ -51,7 +52,7 @@ public class BattleManager implements IBattleManager {
 
 	private volatile IBattle battle;
 	private Thread battleThread;
-	private BattleProperties battleProperties = new BattleProperties();
+	private BattleProperties battleProperties;
 
 	private final BattleEventDispatcher battleEventDispatcher;
 
@@ -69,6 +70,7 @@ public class BattleManager implements IBattleManager {
 		this.hostManager = hostManager;
 		this.battleEventDispatcher = battleEventDispatcher;
 		Logger.setLogListener(battleEventDispatcher);
+		battleProperties = new BattleProperties(properties);
 	}
 
 	public synchronized void cleanup() {
@@ -88,7 +90,7 @@ public class BattleManager implements IBattleManager {
 	}
 
 	// Called from the RobocodeEngine
-	public void startNewBattle(BattleSpecification spec, String initialPositions, boolean waitTillOver, boolean enableCLIRecording) {
+	public void startNewBattle(BattleSpecification spec, String initialPositions, boolean waitTillOver, boolean enableRecording) {
 		battleProperties = new BattleProperties();
 		battleProperties.setBattlefieldWidth(spec.getBattlefield().getWidth());
 		battleProperties.setBattlefieldHeight(spec.getBattlefield().getHeight());
@@ -108,17 +110,26 @@ public class BattleManager implements IBattleManager {
 
 		final RobotSpecification[] robots = repositoryManager.loadSelectedRobots(spec.getRobots());
 
-		startNewBattleImpl(robots, waitTillOver, enableCLIRecording);
+		startNewBattleImpl(robots, waitTillOver, enableRecording);
 	}
 
-	private void startNewBattleImpl(RobotSpecification[] battlingRobotsList, boolean waitTillOver, boolean enableCLIRecording) {
+	@Override
+	public void takeScreenshot() {
+		IWindowManager windowManager = Container.getComponent(IWindowManager.class);
+
+		if (windowManager != null) {
+			windowManager.takeScreenshot();
+		}
+	}
+
+	private void startNewBattleImpl(RobotSpecification[] battlingRobotsList, boolean waitTillOver, boolean enableRecording) {
 		stop(true);
 
 		logMessage("Preparing battle...");
 
 		final boolean recording = (properties.getOptionsCommonEnableReplayRecording()
 				&& System.getProperty("TESTING", "none").equals("none"))
-						|| enableCLIRecording;
+						|| enableRecording;
 
 		if (recording) {
 			recordManager.attachRecorder(battleEventDispatcher);

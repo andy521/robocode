@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.battle.snapshot;
 
@@ -12,12 +12,10 @@ import net.sf.robocode.battle.peer.BulletPeer;
 import net.sf.robocode.battle.peer.ExplosionPeer;
 import net.sf.robocode.battle.peer.RobotPeer;
 import net.sf.robocode.peer.ExecCommands;
-import net.sf.robocode.serialization.IXmlSerializable;
-import net.sf.robocode.serialization.XmlReader;
-import net.sf.robocode.serialization.SerializableOptions;
-import net.sf.robocode.serialization.XmlWriter;
+import net.sf.robocode.serialization.*;
 import robocode.control.snapshot.BulletState;
 import robocode.control.snapshot.IBulletSnapshot;
+import robocode.util.Utils;
 
 import java.io.IOException;
 
@@ -31,7 +29,7 @@ import java.io.IOException;
  *
  * @since 1.6.1
  */
-final class BulletSnapshot implements java.io.Serializable, IXmlSerializable, IBulletSnapshot {
+public final class BulletSnapshot implements java.io.Serializable, IXmlSerializable, IBulletSnapshot {
 
 	private static final long serialVersionUID = 2L;
 
@@ -121,10 +119,14 @@ final class BulletSnapshot implements java.io.Serializable, IXmlSerializable, IB
 		heading = bullet.getHeading();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
-		return ownerIndex + "-" + bulletId + " (" + (int) power + ") X" + (int) x + " Y" + (int) y + " "
-				+ state.toString();
+		return ownerIndex + "-" + bulletId + " (" + (int) power + ") X" + (int) x + " Y" + (int) y
+				+ " ~" + Utils.angleToApproximateDirection(heading)
+				+ " " + state.toString();
 	}
 
 	/**

@@ -1,14 +1,17 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode.control.events;
 
 
 import robocode.control.snapshot.ITurnSnapshot;
+import robocode.robotinterfaces.IBasicRobot;
+
+import java.util.List;
 
 
 /**
@@ -26,6 +29,7 @@ import robocode.control.snapshot.ITurnSnapshot;
 public class RoundStartedEvent extends BattleEvent {
 	private final ITurnSnapshot startSnapshot;
 	private final int round;
+	private final List<IBasicRobot> robotObjects;
 
 	/**
 	 * Called by the game to create a new RoundStartedEvent.
@@ -33,11 +37,13 @@ public class RoundStartedEvent extends BattleEvent {
 	 *
 	 * @param startSnapshot the start snapshot of the participating robots, initial starting positions etc.
 	 * @param round the round number (zero indexed).
+	 * @param robotObjects instances of robots for integration testing
 	 */
-	public RoundStartedEvent(ITurnSnapshot startSnapshot, int round) {
+	public RoundStartedEvent(ITurnSnapshot startSnapshot, int round, List<IBasicRobot> robotObjects) {
 		super();
 		this.startSnapshot = startSnapshot;
 		this.round = round;
+		this.robotObjects = robotObjects;
 	}
 
 	/**
@@ -57,5 +63,12 @@ public class RoundStartedEvent extends BattleEvent {
 	 */
 	public int getRound() {
 		return round;
+	}
+
+	/**
+	 * @return instances of robots for integration testing
+	 */
+	public List<IBasicRobot> getRobotObjects(){
+		return robotObjects;
 	}
 }

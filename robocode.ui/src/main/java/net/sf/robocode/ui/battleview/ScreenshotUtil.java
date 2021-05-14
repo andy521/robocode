@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.ui.battleview;
 
@@ -22,6 +22,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.FileImageOutputStream;
 
 import net.sf.robocode.io.FileUtil;
+import net.sf.robocode.io.Logger;
 
 
 /**
@@ -44,6 +45,8 @@ public class ScreenshotUtil {
 		FileUtil.createDir(screenshotDir);
 
 		File file = new File(screenshotDir, DATE_FORMAT.format(new Date()) + '.' + format.toLowerCase());
+
+		Logger.logMessage("Saved screenshot to "+file.getAbsolutePath());
 
 		try {
 			// Instantiate an ImageWriteParam object with default compression options

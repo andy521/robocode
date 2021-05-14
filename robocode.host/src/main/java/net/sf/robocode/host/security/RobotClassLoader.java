@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host.security;
 
@@ -11,21 +11,16 @@ package net.sf.robocode.host.security;
 import net.sf.robocode.core.Container;
 import net.sf.robocode.host.IHostedThread;
 import net.sf.robocode.host.IRobotClassLoader;
-import net.sf.robocode.io.FileUtil;
 import net.sf.robocode.io.Logger;
 import net.sf.robocode.io.RobocodeProperties;
-import net.sf.robocode.io.URLJarCollector;
 import robocode.robotinterfaces.IBasicRobot;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.security.*;
 import java.security.cert.Certificate;
@@ -48,7 +43,7 @@ import java.util.Set;
  */
 public class RobotClassLoader extends URLClassLoader implements IRobotClassLoader {
 
-	static final String UNTRUSTED_URL = "http://robocode.sf.net/untrusted";
+	static final String UNTRUSTED_URL = "https://robocode.sourceforge.io/untrusted";
 
 	private static final PermissionCollection EMPTY_PERMISSIONS = new Permissions();
 
@@ -87,12 +82,19 @@ public class RobotClassLoader extends URLClassLoader implements IRobotClassLoade
 	}
 
 	public synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-		if (name.startsWith("java.lang")) {
-			// we always delegate java.lang stuff to parent loader
+		if (name.startsWith("java.lang") || name.startsWith("kotlin.")) {
+			// we always delegate java.lang and Kotlin stuff to parent loader
 			return super.loadClass(name, resolve);
 		}
 		if (RobocodeProperties.isSecurityOn()) {
 			testPackages(name);
+		} else {
+			// try if the class is available in parent classLoader
+			Class<?> result = parent.loadClass(name);
+			if (result != null) {
+				// yes, it is in system class path
+				return result;
+			}
 		}
 		if (!name.startsWith("robocode")) {
 			Class<?> result = loadRobotClassLocaly(name, resolve);
@@ -105,7 +107,6 @@ public class RobotClassLoader extends URLClassLoader implements IRobotClassLoade
 
 		// it is robot API
 		// or java class
-		// or security is off
 		// so we delegate to parent class loader
 		return parent.loadClass(name);
 	}
@@ -155,45 +156,8 @@ public class RobotClassLoader extends URLClassLoader implements IRobotClassLoade
 				// this is URL, don't change to File.pathSeparator
 				String path = name.replace('.', '/').concat(".class");
 				URL url = findResource(path);
-				ByteBuffer result = null;
-				InputStream is = null;
-				BufferedInputStream bis = null;
 
-				if (url != null) {
-					try {
-						URLConnection connection = URLJarCollector.openConnection(url);
-
-						is = connection.getInputStream();
-						bis = new BufferedInputStream(is);
-
-						result = ByteBuffer.allocate(1024 * 8);
-						boolean done = false;
-
-						do {
-							do {
-								int res = bis.read(result.array(), result.position(), result.remaining());
-
-								if (res == -1) {
-									done = true;
-									break;
-								}
-								result.position(result.position() + res);
-							} while (result.remaining() != 0);
-							result.flip();
-							if (!done) {
-								result = ByteBuffer.allocate(result.capacity() * 2).put(result);
-							}
-						} while (!done);
-
-					} catch (IOException e) {
-						Logger.logError(e);
-						return null;
-					} finally {
-						FileUtil.cleanupStream(bis);
-						FileUtil.cleanupStream(is);
-					}
-				}
-				return result;
+				return ClassFileReader.readClassFileFromURL(url);
 			}
 		});
 	}
@@ -216,6 +180,9 @@ public class RobotClassLoader extends URLClassLoader implements IRobotClassLoade
 	}
 
 	public synchronized Class<?> loadRobotMainClass(boolean resolve) throws ClassNotFoundException {
+		if (fullClassName == null) return null;
+
+
 		try {
 			if (robotClass == null) {
 				robotClass = loadClass(fullClassName, resolve);
@@ -420,5 +387,35 @@ public class RobotClassLoader extends URLClassLoader implements IRobotClassLoade
 	private static boolean isStaticReference(Field field) {
 		return Modifier.isStatic(field.getModifiers())
 				&& !(field.getType().isPrimitive() || field.isEnumConstant() || field.isSynthetic());
+	}
+
+	// Work-round for bug 389: Third-party team JARs broken with Java 9
+	// The URLClassLoader.findResource() in Java 9 returns null with some robot JARs
+	@Override
+	public URL findResource(String name) {
+		URL url = super.findResource(name);
+		if (url == null) {
+			// Ignore internal Java and Robocode classes
+			if (name.startsWith("jdk/") || name.startsWith("java/") || name.startsWith("sun/") || name.startsWith("net.sf.robocode/")) {
+				return null;
+			}
+			URL[] urls = getURLs();
+			if (urls != null) {
+				for (int i = 0; i < urls.length; i++) {
+					URL u = urls[i];
+					if (u != null) {
+						try {
+							URL tmp = new URL(u.getProtocol(), u.getHost(), u.getPort(), u.getPath() + name);
+							if (u.openConnection() != null) {
+								return tmp;
+							}
+						} catch (MalformedURLException ignore) {
+						} catch (IOException ignore) {
+						}
+					}
+				}
+			}
+		}
+		return url;
 	}
 }

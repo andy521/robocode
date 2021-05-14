@@ -1,15 +1,14 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.roborumble.battlesengine;
 
 
 import net.sf.robocode.io.Logger;
-import static net.sf.robocode.roborumble.util.PropertiesUtil.getProperties;
 import robocode.control.*;
 import robocode.control.events.BattleAdaptor;
 import robocode.control.events.BattleCompletedEvent;
@@ -24,12 +23,13 @@ import java.util.*;
  * Reads a file with the battles to be runned and outputs the results in another file.
  * Controlled by properties files.
  *
- * @author Albert Pérez (original)
+ * @author Albert Perez (original)
  * @author Flemming N. Larsen (contributor)
  * @author Joachim Hofer (contributor)
+ * @author Pavel Savara (contributor)
  */
 public class BattlesRunner {
-	private final String inputfile;
+	private final BattlesFile inputfile;
 	private final int numrounds;
 	private final int fieldlen;
 	private final int fieldhei;
@@ -39,22 +39,15 @@ public class BattlesRunner {
 	private static RobotResults[] lastResults;
 	private static IRobocodeEngine engine;
 
-	public BattlesRunner(String propertiesfile) {
-		// Read parameters
-		Properties parameters = getProperties(propertiesfile);
+	public BattlesRunner(String game, Properties parameters) {
 
-		inputfile = parameters.getProperty("INPUT", "");
+		inputfile = new BattlesFile(parameters.getProperty("INPUT", ""));
 		numrounds = Integer.parseInt(parameters.getProperty("ROUNDS", "10"));
 		fieldlen = Integer.parseInt(parameters.getProperty("FIELDL", "800"));
 		fieldhei = Integer.parseInt(parameters.getProperty("FIELDH", "600"));
 		outfile = parameters.getProperty("OUTPUT", "");
 		user = parameters.getProperty("USER", "");
-
-		game = propertiesfile;
-		while (game.indexOf("/") != -1) {
-			game = game.substring(game.indexOf("/") + 1);
-		}
-		game = game.substring(0, game.indexOf("."));
+		this.game = game;
 
 		initialize();
 	}
@@ -76,8 +69,8 @@ public class BattlesRunner {
 		BattleSpecification battle = new BattleSpecification(numrounds, field, (new RobotSpecification[2]));
 
 		// Read input file
-		ArrayList<String> robots = new ArrayList<String>();
-		if (readRobots(robots)) {
+		ArrayList<RumbleBattle> rumbleBattles = new ArrayList<RumbleBattle>();
+		if (inputfile.readRumbleBattles(rumbleBattles)) {
 			return;
 		}
 
@@ -90,10 +83,10 @@ public class BattlesRunner {
 		// run battle
 		int index = 0;
 
-		while (index < robots.size()) {
-			String[] param = (robots.get(index)).split(",");
+		while (index < rumbleBattles.size()) {
+			RumbleBattle rumbleBattle = rumbleBattles.get(index);
 
-			String enemies = getEnemies(melee, param);
+			String enemies = getEnemies(melee, rumbleBattle.getBots());
 
 			System.out.println("Fighting battle " + (index) + " ... " + enemies);
 
@@ -110,7 +103,7 @@ public class BattlesRunner {
 					lastResults = null;
 					engine.runBattle(specification, true);
 					if (lastResults != null && lastResults.length > 1) {
-						dumpResults(outtxt, lastResults, param[param.length - 1], melee);
+						dumpResults(outtxt, lastResults, rumbleBattle, melee);
 					}
 				}
 			} else {
@@ -123,21 +116,21 @@ public class BattlesRunner {
 		outtxt.close();
 	}
 
-	private String getEnemies(boolean melee, String[] param) {
+	private String getEnemies(boolean melee, String[] bots) {
 		String enemies;
 
 		if (melee) {
 			StringBuilder eb = new StringBuilder();
 
-			for (int i = 0; i < param.length - 1; i++) {
+			for (int i = 0; i < bots.length; i++) {
 				if (i > 0) {
 					eb.append(',');
 				}
-				eb.append(param[i]);
+				eb.append(bots[i]);
 			}
 			enemies = eb.toString();
 		} else {
-			enemies = param[0] + "," + param[1];
+			enemies = bots[0] + "," + bots[1];
 		}
 		return enemies;
 	}
@@ -152,31 +145,7 @@ public class BattlesRunner {
 		}
 	}
 
-	private boolean readRobots(ArrayList<String> robots) {
-		BufferedReader br = null;
-		try {
-			FileReader fr = new FileReader(inputfile);
-			br = new BufferedReader(fr);
-
-			String record;
-			while ((record = br.readLine()) != null) {
-				robots.add(record);
-			}
-		} catch (IOException e) {
-			System.out.println("Battles input file not found ... Aborting");
-			System.out.println(e);
-			return true;
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException ignore) {}
-			}
-		}
-		return false;
-	}
-
-	private void dumpResults(PrintStream outtxt, RobotResults[] results, String last, boolean melee) {
+	private void dumpResults(PrintStream outtxt, RobotResults[] results, RumbleBattle rumbleBattle, boolean melee) {
 		final String BOT_INDEX_PATTERN = "\\[.*\\]";
 
 		for (int i = 0; i < results.length; i++) {
@@ -191,18 +160,21 @@ public class BattlesRunner {
 					String name2 = bot2.getTeamId() != null
 							? bot2.getTeamId().replaceAll(BOT_INDEX_PATTERN, "")
 							: bot2.getNameAndVersion();
-					int points1 = results[i].getScore();
-					int points2 = results[j].getScore();
-					int bullets1 = results[i].getBulletDamage();
-					int bullets2 = results[j].getBulletDamage();
-					int survival1 = results[i].getFirsts();
-					int survival2 = results[j].getFirsts();
 
-					outtxt.println(
-							game + "," + numrounds + "," + fieldlen + "x" + fieldhei + "," + user + ","
-							+ System.currentTimeMillis() + "," + last);
-					outtxt.println(name1 + "," + points1 + "," + bullets1 + "," + survival1);
-					outtxt.println(name2 + "," + points2 + "," + bullets2 + "," + survival2);
+					if (rumbleBattle.shouldDumpResult(name1) || rumbleBattle.shouldDumpResult(name2)) {
+						int points1 = results[i].getScore();
+						int points2 = results[j].getScore();
+						int bullets1 = results[i].getBulletDamage();
+						int bullets2 = results[j].getBulletDamage();
+						int survival1 = results[i].getFirsts();
+						int survival2 = results[j].getFirsts();
+
+						outtxt.println(
+								game + "," + numrounds + "," + fieldlen + "x" + fieldhei + "," + user + ","
+										+ System.currentTimeMillis() + "," + rumbleBattle.getRunonly());
+						outtxt.println(name1 + "," + points1 + "," + bullets1 + "," + survival1);
+						outtxt.println(name2 + "," + points2 + "," + bullets2 + "," + survival2);
+					}
 				}
 			}
 		}

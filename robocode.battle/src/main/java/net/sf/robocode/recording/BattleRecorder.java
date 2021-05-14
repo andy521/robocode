@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.recording;
 
@@ -71,7 +71,7 @@ class BattleRecorder {
 		@Override
 		public void onBattleStarted(BattleStartedEvent event) {
 			recordmanager.cleanupStreams();
-			recordmanager.createRecordInfo(event.getBattleRules(), event.getRobotsCount());
+			recordmanager.createRecordInfo(event.getBattleRules(), event.getRobotsCount(), event.getBattleId());
 
 			currentRound = 0;
 			currentTurn = 0;
@@ -126,9 +126,12 @@ class BattleRecorder {
 					name.append('-');
 				}
 				name.setLength(name.length() - 1);
-				if (properties.getOptionsCommonAutoRecordingXML()) {
+				if (properties.getOptionsCommonRecordingFormat().equalsIgnoreCase("xml")) {
 					name.append(".xml.zip");
 					recordmanager.saveRecord(name.toString(), BattleRecordFormat.XML_ZIP, new SerializableOptions(true));
+				} else if (properties.getOptionsCommonRecordingFormat().equalsIgnoreCase("csv")) {
+					recordmanager.saveRecord(name.toString(), BattleRecordFormat.CSV,
+							new SerializableOptions(true));
 				} else {
 					name.append(".zip.br");
 					recordmanager.saveRecord(name.toString(), BattleRecordFormat.BINARY_ZIP,

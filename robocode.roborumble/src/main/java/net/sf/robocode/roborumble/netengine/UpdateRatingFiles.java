@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.roborumble.netengine;
 
@@ -22,8 +22,9 @@ import java.util.Vector;
  * Class used for updating the local rating files.
  * Controlled by properties files.
  *
- * @author Albert Pérez (original)
+ * @author Albert Perez (original)
  * @author Flemming N. Larsen (contributor)
+ * @author Pavel Savara (contributor)
  */
 public class UpdateRatingFiles {
 
@@ -37,15 +38,8 @@ public class UpdateRatingFiles {
 	private final String microratings;
 	private final String nanoratings;
 
-	public UpdateRatingFiles(String propertiesfile) {
-		// Read parameters
-		Properties parameters = getProperties(propertiesfile);
-
-		game = propertiesfile;
-		while (game.indexOf("/") != -1) {
-			game = game.substring(game.indexOf("/") + 1);
-		}
-		game = game.substring(0, game.indexOf("."));
+	public UpdateRatingFiles(String game, Properties parameters) {
+		this.game = game;
 		minibots = parameters.getProperty("MINIBOTS", "");
 		microbots = parameters.getProperty("MICROBOTS", "");
 		nanobots = parameters.getProperty("NANOBOTS", "");

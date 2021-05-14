@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package sample;
 
@@ -17,7 +17,7 @@ import java.awt.*;
 
 /**
  * Walls - a sample robot by Mathew Nelson, and maintained by Flemming N. Larsen
- * <p/>
+ * <p>
  * Moves around the outer edge with the gun facing in.
  *
  * @author Mathew A. Nelson (original)

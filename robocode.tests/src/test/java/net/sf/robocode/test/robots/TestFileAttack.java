@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.test.robots;
 
@@ -31,24 +31,24 @@ public class TestFileAttack extends RobocodeTestBed {
 	@Override
 	public void onTurnEnded(TurnEndedEvent event) {
 		super.onTurnEnded(event);
-		final String out = event.getTurnSnapshot().getRobots()[1].getOutputStreamSnapshot();
+		final String out = event.getTurnSnapshot().getRobots()[0].getOutputStreamSnapshot();
 
-		if (out.contains("Preventing tested.robots.FileAttack from access: (java.io.FilePermission C:\\MSDOS.SYS read)")
+		if (out.contains("Preventing tested.robots.FileAttack (1) from access: (java.io.FilePermission C:\\MSDOS.SYS read)")
 				|| out.contains(
-						"Preventing tested.robots.FileAttack from access: (\"java.io.FilePermission\" \"C:\\MSDOS.SYS\" \"read\")")) {
+						"Preventing tested.robots.FileAttack (1) from access: (\"java.io.FilePermission\" \"C:\\MSDOS.SYS\" \"read\")")) {
 			messagedRead = true;
 		}
 		if (out.contains(
-				"Preventing tested.robots.FileAttack from access: (java.io.FilePermission C:\\Robocode.attack write)")
+				"Preventing tested.robots.FileAttack (1) from access: (java.io.FilePermission C:\\Robocode.attack write)")
 						|| out.contains(
-								"Preventing tested.robots.FileAttack from access: (\"java.io.FilePermission\" \"C:\\Robocode.attack\" \"write\")")) {
+								"Preventing tested.robots.FileAttack (1) from access: (\"java.io.FilePermission\" \"C:\\Robocode.attack\" \"write\")")) {
 			messagedWrite = true;
 		}
 	}
 
 	@Override
-	public String getRobotNames() {
-		return "sample.Fire,tested.robots.FileAttack";
+	public String getRobotName() {
+		return "tested.robots.FileAttack";
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.ui.dialog;
 
@@ -45,6 +45,7 @@ public class RobotButton extends JButton implements ActionListener {
 	private String name;
 	private int robotIndex;
 	private int contestantIndex;
+	private int teamIndex;
 	private int maxEnergy = 1;
 	private int maxScore = 1;
 	private int lastEnergy;
@@ -57,10 +58,11 @@ public class RobotButton extends JButton implements ActionListener {
 		this.dialogManager = dialogManager;
 	}
 
-	public void setup(String name, int maxEnergy, int robotIndex, int contestantIndex, boolean attach) {
+	public void setup(String name, int maxEnergy, int robotIndex,int contestantIndex, int teamIndex, boolean attach) {
 		this.name = name;
 		this.robotIndex = robotIndex;
 		this.contestantIndex = contestantIndex;
+		this.teamIndex = teamIndex;
 		this.lastEnergy = maxEnergy;
 		this.maxEnergy = maxEnergy;
 		initialize();
@@ -195,7 +197,7 @@ public class RobotButton extends JButton implements ActionListener {
 				maxScore = 1;
 			}
 
-			final int newScore = (int) scoreSnapshotList[contestantIndex].getCurrentScore();
+			final int newScore = (int) scoreSnapshotList[teamIndex >= 0 ? teamIndex : contestantIndex].getCurrentScore();
 			final int newEnergy = (int) robots[robotIndex].getEnergy();
 			boolean rep = (lastEnergy != newEnergy || lastScore != newScore);
 

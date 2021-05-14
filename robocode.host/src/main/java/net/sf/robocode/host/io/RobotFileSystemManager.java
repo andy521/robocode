@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host.io;
 
@@ -131,13 +131,6 @@ public class RobotFileSystemManager {
 		// TODO the file is never replaced from jar or directory after it was created
 		// TODO it would be good to replace it when it have bigger last modified date
 		if (!file.exists()) {
-			if (parent == null) {
-				// #380 yet another historical bot related bug
-				Version robocodeVersion = robotProxy.getStatics().getRobocodeVersion();
-				if (robocodeVersion.compareTo("1.8.2.0") < 0) {
-					throw new NullPointerException();
-				}
-			}
 			if (parent != null && !parent.exists() && !parent.mkdirs()) {
 				return file;
 			}
@@ -151,14 +144,30 @@ public class RobotFileSystemManager {
 				connection.setUseCaches(false);
 				try {
 					is = connection.getInputStream();
-				} catch (FileNotFoundException ignore) {// Expected as no file might exists with the specified input 'filename'
+				} catch (FileNotFoundException ex) { // Expected as no file might exists with the specified input 'filename'
+					// #380 yet another historical bot related bug
+					Version robocodeVersion = toVersion(robotProxy.getStatics().getRobocodeVersion());
+					if (robocodeVersion != null && robocodeVersion.compareTo("1.8.2.0") < 0) {
+						throw ex;
+					}
 				}
 				os = new FileOutputStream(file);
 				if (is != null) {
 					copyStream(is, os);
 				}
 			} catch (IOException e) {
-				Logger.logError(e);
+				// #380 yet another historical bot related bug
+				boolean legacyRobot = false;
+				if (e instanceof FileNotFoundException) {
+					Version robocodeVersion = toVersion(robotProxy.getStatics().getRobocodeVersion());
+					if (robocodeVersion != null && robocodeVersion.compareTo("1.8.2.0") < 0) {
+						legacyRobot = true;
+					}
+				}
+				if (!legacyRobot) {
+					// Always log error, unless an legacy robot got a FileNotFoundException
+					Logger.logError(e);
+				}
 			} finally {
 				FileUtil.cleanupStream(is);
 				FileUtil.cleanupStream(os);
@@ -309,5 +318,19 @@ public class RobotFileSystemManager {
 			bos.write(buf, 0, len);
 		}
 		bos.flush();
+	}
+
+	private static Version toVersion(String vers) {
+		if (vers != null) {
+			vers = vers.trim();
+			if (vers.length() > 0) {
+				try {
+					return new Version(vers);
+				} catch (IllegalArgumentException ex) {
+					return null;
+				}
+			}
+		}
+		return null;
 	}
 }

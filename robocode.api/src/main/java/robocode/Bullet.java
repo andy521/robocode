@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -11,6 +11,7 @@ package robocode;
 import net.sf.robocode.security.IHiddenBulletHelper;
 import net.sf.robocode.serialization.ISerializableHelper;
 import net.sf.robocode.serialization.RbSerializer;
+import robocode.util.Utils;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -73,6 +74,7 @@ public class Bullet implements Serializable {
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
+		// bulletId is unique to single round and robot owner
 		return bulletId == ((Bullet) obj).bulletId;
 	}
 
@@ -83,7 +85,7 @@ public class Bullet implements Serializable {
 
 	/**
 	 * Returns the direction the bullet is/was heading, in degrees
-	 * (0 <= getHeading() < 360). This is not relative to the direction you are
+	 * (0 &lt;= getHeading() &lt; 360). This is not relative to the direction you are
 	 * facing.
 	 *
 	 * @return the direction the bullet is/was heading, in degrees
@@ -94,7 +96,7 @@ public class Bullet implements Serializable {
 
 	/**
 	 * Returns the direction the bullet is/was heading, in radians
-	 * (0 <= getHeadingRadians() < 2 * Math.PI). This is not relative to the
+	 * (0 &lt;= getHeadingRadians() &lt; 2 * Math.PI). This is not relative to the
 	 * direction you are facing.
 	 *
 	 * @return the direction the bullet is/was heading, in radians
@@ -114,7 +116,7 @@ public class Bullet implements Serializable {
 
 	/**
 	 * Returns the power of this bullet.
-	 * <p/>
+	 * <p>
 	 * The bullet will do (4 * power) damage if it hits another robot.
 	 * If power is greater than 1, it will do an additional 2 * (power - 1)
 	 * damage. You will get (3 * power) back if you hit the other robot.
@@ -257,5 +259,12 @@ public class Bullet implements Serializable {
 
 			return new Bullet(headingRadians, x, y, power, ownerName, victimName, isActive, bulletId);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return ownerName + "-" + bulletId + " (" + (int) power + ") X" + (int) x + " Y" + (int) y
+				+ " ~" + Utils.angleToApproximateDirection(headingRadians)
+				+ " " + victimName;
 	}
 }

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.test.robots;
 
@@ -13,6 +13,8 @@ import net.sf.robocode.test.helpers.RobocodeTestBed;
 import org.junit.Test;
 import robocode.control.events.TurnEndedEvent;
 
+import java.security.AccessControlException;
+
 
 /**
  * @author Pavel Savara (original)
@@ -20,33 +22,15 @@ import robocode.control.events.TurnEndedEvent;
 public class TestEnvAttack extends RobocodeTestBed {
 	boolean messagedAttack;
 
-	@Test
+	@Test(expected = AccessControlException.class)
 	public void run() {
 		super.run();
 	}
 
 	@Override
-	public String getRobotNames() {
-		return "tested.robots.BattleLost,tested.robots.EnvAttack";
+	public String getRobotName() {
+		return "tested.robots.EnvAttack";
 	}
 
-	@Override
-	protected int getExpectedErrors() {
-		return 1;
-	}
 
-	@Override
-	public void onTurnEnded(TurnEndedEvent event) {
-		super.onTurnEnded(event);
-		final String out = event.getTurnSnapshot().getRobots()[1].getOutputStreamSnapshot();
-
-		if (out.contains("AccessControlException: access denied")) {
-			messagedAttack = true;
-		}
-	}
-
-	@Override
-	protected void runTeardown() {
-		Assert.assertTrue(messagedAttack);
-	}
 }

@@ -1,9 +1,166 @@
-## Version 1.9.2.5 (16-Dec-2015)
+## Version 1.9.4.2 (10-05-2021)
+
+### Changes
+* A robot index has been added to all robot in the format ``name + (index)``. This is change was made to fix various issues in e.g. team bots and make the internal logic simpler.
+* Improved the API documentation for the TeamRobot and Droid team robots.
+
+### Bugfix
+* Fixed getTeammates() that returned the wrong names and isTeammate() that returned false for teammates.
+
+## Version 1.9.4.1 (09-04-2021)
+
+### Bugfix
+* [Bug-414][] Fixed bug in ramming: when robots collide, they should and do change position. But the bullets were still hitting original place in the next turn, as if the robot was not moved by collision.
+
+### Changes
+* Robot painting to screen per default could be enabled by -DPAINTING=true
+* Made installer compatible with headless systems. Made default classPath lib/* for startup scripts.
+* Improve testability: 
+	* Moved robocode.control.RobotTestBed.
+	* RoundStartedEvent.getRobotObjects() is available on Control API. Useful for white-box testing of robot state.
+	* Exceptions in the robot are now propagated to unit test. See test.robots.TestThrowing.
+	* Exceptions in the robot are now propagated to BattleErrorEvent of control API when -DTESTING=true
+	* Improved Robot and Bullet toString() so that it displays approximate cardinal direction, like N,NE,E,SE,S,SW,W,NW
+	* Added Utils.assertNotNull(), Utils.assertEquals(), Utils.assertTrue(), Utils.assertNear() for testing comfort.
+	* Bullet IDs are now more unique.
+	* Unit test is aborted on robot exception.
+	* Control API could now take screenshots.
+	* Unit test could enable taking screenshots when exception or asset occurs. See RobotTestBed.isEnableScreenshots()
+	* Robots could be statistically tested against multiple opponents. For example see net.sf.robocode.test.robots.TestScore
+* Roborumble could now override USER, PARTICIPANTSURL, UPDATEBOTSURL, RESULTSURL, RATINGSURL via environment variables.
+* Published Roborumble client as docker image to https://hub.docker.com/r/zamboch/roborumble with the above environment variables available.
+
+## Version 1.9.4.0 (15-02-2021)
+
+### Changes
+* Migrated from Maven to Gradle.
+* Migrated from Eclipse to Idea.
+* Published to Maven Central.
+
+## Version 1.9.3.9 (20-04-2020)
+
+### Changes
+* Updated RoboRumble links to use HTTPS instead of HTTP
+	* Thank you Skilgannon for this fix, and especially to get the RoboWiki up and running again! :-)
+* Updated all links to RoboWiki to use HTTPS.
+
+## Version 1.9.3.8 (29-03-2020)
+
+### Bugfixes
+
+* [Bug-410][]: Remove obsolete warnings regarding colors and turns.
+	* Thanks goess to Lufte for fixing this.
+* [Bug-412][]: Bug fix 388 breaks score display in robot buttons.
+* Prevent robot console from trimming log.
+	* Thank you Xor for the last two fixes. :-)
+
+## Version 1.9.3.7 (31-08-2019)
+
+### Bugfixes
+* [Bug-407][]: RobocodeEngine: Can't find robocode.core-1.x.jar
+* [Bug-409][]: Robot repository is completely rebuilt whenever dev dir is changed via UI.
+	* Thanks goes to Xor for this fix. :-)
+	
+## Version 1.9.3.6 (08-05-2019)
+
+### Bugfixes
+* [Bug-404][]: Confusion between development/non-development versions of bots
+	* Rollback of previous attempt to fix issues with the RobocodeEngine, which could not read robots in "developer mode" (marked with a asterix character). Hence the old bug [Bug-398][] has been reintroduced.
+* [Bug-406][]: DNS interaction is not blocked by Robocode's security manager
+* Fixed issue where compiled robots could not be found. Added -encoding UTF-8 to the compiler options, and corrected -version option into -verbose.
+* [Bug-408][]: Parameter DNOSECURITY (no security manager) cause RoboCode program startup access-error.
+
+### Changes
+* Fix by Xor, which makes Robocode faster at detecting robots in the robot folder, which is crucial for the RoboRumble, when installing or updating a huge amount of robots.
+
+## Version 1.9.3.5 (02-03-2019)
+
+### Bugfixes
+* [Bug-402][]: roborumble.sh etc. has incorrect class path
+	* This was causing codesize utility not being able to work with roborumble. And unfortunately, this error was silenced so the user wouldn't notice that at all.
+* [Bug-403][]: MouseEvent returning wrong position''
+* [Bug-405][]: Fix #405 unnecessary FileNotFound exception
+* Rumble: skip bots that fails to download when calc code size
+* Credits to Xor for all these fixes. :-)
+
+### Changes
+* Added support for Kotlin. Just put the kotlin-stdlib-1.xxx.jar into the /libs folder to allow robots coded in Kotlin.
+
+## Version 1.9.3.4 (05-01-2019)
+
+### Bugfixes
+* [Bug-401][]: RoboRumble client: Biased Melee prioritized pairings
+	* All credits goes to Xor for this fix. :-)
+* An error was thrown every time Robocode checked for a new version. The reason being that the Robocode web page has been moved.
+* Undo/Redo with the Robocode Editor got broken with Java 9+.
+
+### Changes
+* Upgraded the Codesize tool to version 1.2, which support newer versions of Java (9 experimental) and Java 8 lambdas.
+* The Robocode site is now using HTTPS instead of HTTP, and have been moved permanently to https://robocode.sourceforge.io (".io" instead of ".net")
+* Changed the Maven build files to use the Maven Wrapper (mvnw).
+
+## Version 1.9.3.3 (10-09-2018)
+
+### Bug fixes
+* Fixed issue with the RobocodeEngine, which could not read robots in "developer mode" (marked with a asterix '*' character)
+* [Bug-395][]: Roborumble client duplicates battle results on network error.
+* [Bug-397][]: Robocode UI cannot remember battle settings upon restart.
+* [Bug-399][]: RANDOMSEED option does not support Java 8.
+	* Thanks goes to Xor for all 3 fixes above. :-)
+* [Bug-400][]: Problem to compile Robot.
+    * The compiler options have been cut down to include only the -verbose option per default.
+
+## Version 1.9.3.2 (04-04-2018) The Java 10 support release
+
+### Bug fixes
+* Fixed problems with shell and Mac OS commands files, which contained ^M (Microsoft windows) characters.
+* Fixed issue with sample.SittingDuck, which got a security violation due to new security restrictions introduced with Java 10.
+
+### Changes
+* Upgraded Eclipse Compiler for Java (ECJ) to newest version 3.14.0.v20180305-0940.
+	* The older version caused problems with compiling robots on Java 9 or newer.
+
+## Version 1.9.3.1 (17-03-2018)
+
+### Bug fixes
+* [Bug-393][]: More frequent roborumble server checks.
+     * The check for new robots was changed from 2 hours to 10 minutes.
+     * Thanks goes to Julian Kent (aka Skilgannon) for this fix.
+* [Bug-394][]: HiDPI scaling causes visual glitches.
+* Fixed issues with creating and packaging robot teams.
+
+## Version 1.9.3.0 (17-10-2017) The Java 9 support release
+
+### Bug fixes
+* [Bug-386][]: Can't run Robocode 1.9.2.6 on Mac OS.
+	* Java 9 issue, which was fixed by bug fix for Bug-391. Thanks goes to MultiplyByZer0
+* [Bug-387][]: Not printing in console when a bot is force stopped.
+	* Thanks goes to MultiplyByZer0 and Julian Kent (aka Skilgannon) for the fix. :-)
+* [Bug-388][]: UI exception in team battles.
+* [Bug-389][]: Third-party team JARs broken with Java 9
+* [Bug-390][]: Bad CPU constant calculation on Java 9.
+* [Bug-391][]: Fix for "Illegal reflective access".
+* [Bug-392][]: Bullets of the same bot collide at low bullet powers and high gun-cooling rate.
+
+## Version 1.9.2.6 (01-01-2017)
+
+### Bug fixes
+* [Bug-381][]: Improve feedback after entering empty package name during robot creation.
+* [Bug-382][]: Unable to run robocode.bat -- AccessControlException.
+* [Bug-383][]: Java 8 lamba expressions cause ClassNotFoundException.
+
+### Changes
+* Upgraded Eclipse Compiler for Java (ECJ) to version 4.6.1
+
+## Version 1.9.2.5 (30-Dec-2015)
 
 ### Bug fixes
 * [Bug-378][]: robocode.robocodeGL.system.GLRenderer ClassNotFoundException.
 * [Bug-380][]: Yet another historical bot related bug.
 * Robot Editor: Source files were set to modified (starred) as soon as they were loaded. The modification state remained, even when no changes were made to the source file or when undoing all changes. Therefore the editor would always bring up a dialog with a warning, that the source file needed to be saved before closing the editor.
+
+### Change
+* [Req-160][]: Fixed width font in console. Some systems did not used monospaced font in console windows.
 
 ## Version 1.9.2.4 (20-Nov-2014)
 
@@ -236,7 +393,7 @@
 ### New Features
 * A new config file has been added for [RoboRumble][] in the roborumble directory in the robocode directory named "roborumble.properties".
 	* With this config file it is possible to configure the *connection timeout*, *read timeout* and *session timeout* used when downloading robots and uploading results.
-* [Req-144]: Mac ... start with icon and name.
+* [Req-144][]: Mac ... start with icon and name.
 
 ### Changes
 * Upgraded Eclipse Compiler for Java (ECJ) to version 3.7.2.
@@ -338,7 +495,7 @@
 * [Bug-297][]: x,y coords between ``BulletHitEvent`` & ``HitByBulletEvent`` differ.
 * [Bug-299][]: Custom events no longer firing after clearing event queue.
 * Fixed typo in the documentation with valid range of values for the battlefield width and height.
-	* Thanks goes to Tamás Balog for pointing this out.
+	* Thanks goes to Tamï¿½s Balog for pointing this out.
 
 ### New Features
 * Added "Enable auto recording" option to the Common Options, which automatically generates a zipped XML record for every battle.
@@ -1158,7 +1315,7 @@ Currently, there is one known issue, which will be fixed with the next Beta or i
 
 ### New Robot Interfaces
 * A new package named ``robocode.robotinterfaces`` has been introduced, which contains pure Java robot interfaces for basic, advanced, interactive, junior and team robots.
-	* See the Robocode Javadocs (HTML) documentation for more details about these new interfaces [here](http://robocode.sourceforge.net/docs/robocode/robocode/robotinterfaces/package-summary.html).
+	* See the Robocode Javadocs (HTML) documentation for more details about these new interfaces [here](https://robocode.sourceforge.io/docs/robocode/robocode/robotinterfaces/package-summary.html).
 * The main purpose of the new robot interfaces is to make it possible for robot developers to create new robot types with their own API, but also to create robots using other programming languages, which requires used of interfaces instead of classes.
 * The robot interfaces obeys the rules within Robocode, so it is not possible to create new game rules. However, it is possible to create new robot types with other methods names etc. (new API) based on the new robot interfaces. Also note that is is possible to create your own robots based directly on the robot interfaces.
 * See the new '/robots/sampleex' directory for some examples of how to use these new interfaces in Java.
@@ -1594,7 +1751,7 @@ Currently, there is one known issue, which will be fixed with the next Beta or i
 
 #### Codesize
 * [Req-38][]: Codesize.
-	* The codesize tool by Christian D. Schnell has been added to support the built-in [RoboRumle][] plus a new feature for getting the codesize and robot codesize class (MiniBot, MegaBot etc.) when a robot is being packaged.
+	* The codesize tool by Christian D. Schnell has been added to support the built-in [RoboRumble][] plus a new feature for getting the codesize and robot codesize class (MiniBot, MegaBot etc.) when a robot is being packaged.
 	* This tool has now been taken over by Flemming N. Larsen (agreed with Christian) and updated to version 1.1, which can handle files > 2KB, and also analyse .jar files inside .jar files.
 
 #### Start Positions
@@ -2686,9 +2843,9 @@ Currently, there is one known issue, which will be fixed with the next Beta or i
 [RoboRumble]: http://robowiki.net/wiki/RoboRumble (RoboWiki - RoboRumble)
 [Markdown]: http://daringfireball.net/projects/markdown/syntax (Markdown syntax)
 
-[IRobotSnapshot.getContestantIndex()]: http://robocode.sourceforge.net/docs/robocode/robocode/control/snapshot/IRobotSnapshot.html#getContestantIndex()  (robocode.control.snapshot.IRobotSnapshot.getContestantIndex())
-[IRobotSnapshot.getRobotIndex()]: http://robocode.sourceforge.net/docs/robocode/robocode/control/snapshot/IRobotSnapshot.html#getRobotIndex() (robocode.control.snapshot.IRobotSnapshot.getRobotIndex())
-[IRobotSnapshot.getTeamIndex()]: http://robocode.sourceforge.net/docs/robocode/robocode/control/snapshot/IRobotSnapshot.html#getTeamIndex()  (robocode.control.snapshot.IRobotSnapshot.getTeamIndex())
+[IRobotSnapshot.getContestantIndex()]: https://robocode.sourceforge.io/docs/robocode/robocode/control/snapshot/IRobotSnapshot.html#getContestantIndex()  (robocode.control.snapshot.IRobotSnapshot.getContestantIndex())
+[IRobotSnapshot.getRobotIndex()]: https://robocode.sourceforge.io/docs/robocode/robocode/control/snapshot/IRobotSnapshot.html#getRobotIndex() (robocode.control.snapshot.IRobotSnapshot.getRobotIndex())
+[IRobotSnapshot.getTeamIndex()]: https://robocode.sourceforge.io/docs/robocode/robocode/control/snapshot/IRobotSnapshot.html#getTeamIndex()  (robocode.control.snapshot.IRobotSnapshot.getTeamIndex())
 
 [Patch-1]: http://sourceforge.net/p/robocode/patches/1/ (#1 Improved priority battle handling)
 
@@ -2995,6 +3152,35 @@ Currently, there is one known issue, which will be fixed with the next Beta or i
 [Bug-375]: http://sourceforge.net/p/robocode/bugs/375/  (Wrong width and height returned for .NET robots)
 [Bug-378]: http://sourceforge.net/p/robocode/bugs/378/  (robocode.robocodeGL.system.GLRenderer ClassNotFoundException)
 [Bug-380]: http://sourceforge.net/p/robocode/bugs/380/  (Yet another historical bot related bug)
+[Bug-381]: http://sourceforge.net/p/robocode/bugs/381/  (Improve feedback after entering empty package name during robot creation)
+[Bug-382]: http://sourceforge.net/p/robocode/bugs/382/  (Unable to run robocode.bat -- AccessControlException)
+[Bug-383]: http://sourceforge.net/p/robocode/bugs/383/  (Java 8 lamba expressions cause ClassNotFoundException)
+[Bug-386]: http://sourceforge.net/p/robocode/bugs/386/  (Can't run Robocode 1.9.2.6 on Mac OS)
+[Bug-387]: http://sourceforge.net/p/robocode/bugs/387/  (Not printing in console when a bot is force stopped)
+[Bug-388]: http://sourceforge.net/p/robocode/bugs/388/  (UI exception in team battles)
+[Bug-389]: http://sourceforge.net/p/robocode/bugs/389/  (Third-party team JARs broken with Java 9)
+[Bug-390]: http://sourceforge.net/p/robocode/bugs/390/  (Bad CPU constant calculation on Java 9)
+[Bug-391]: http://sourceforge.net/p/robocode/bugs/391/  (Fix for "Illegal reflective access")
+[Bug-392]: http://sourceforge.net/p/robocode/bugs/392/  (Bullets of the same bot collide at low bullet powers and high gun-cooling rate)
+[Bug-393]: http://sourceforge.net/p/robocode/bugs/393/  (More frequent roborumble server checks)
+[Bug-394]: http://sourceforge.net/p/robocode/bugs/394/  (HiDPI scaling causes visual glitches)
+[Bug-395]: http://sourceforge.net/p/robocode/bugs/395/	(Roborumble client duplicates battle results on network error)
+[Bug-397]: http://sourceforge.net/p/robocode/bugs/397/  (Robocode UI cannot remember battle settings upon restart)
+[Bug-398]: http://sourceforge.net/p/robocode/bugs/398/  ("Fixed issue with the RobocodeEngine" breaks develope)
+[Bug-399]: http://sourceforge.net/p/robocode/bugs/399/  (RANDOMSEED option does not support Java 8)
+[Bug-400]: http://sourceforge.net/p/robocode/bugs/400/  (Problem to compile Robot)
+[Bug-401]: http://sourceforge.net/p/robocode/bugs/401/  (RoboRumble client: Biased Melee prioritized pairings)
+[Bug-402]: http://sourceforge.net/p/robocode/bugs/402/  (roborumble.sh etc. has incorrect class path)
+[Bug-403]: http://sourceforge.net/p/robocode/bugs/403/  (MouseEvent returning wrong position)
+[Bug-404]: http://sourceforge.net/p/robocode/bugs/404/  (Confusion between development/non-development versions of bots)
+[Bug-405]: http://sourceforge.net/p/robocode/bugs/405/	(Fix #405 unnecessary FileNotFound exception)
+[Bug-406]: http://sourceforge.net/p/robocode/bugs/406/  (DNS interaction is not blocked by Robocode's security manager)
+[Bug-407]: http://sourceforge.net/p/robocode/bugs/407/  (RobocodeEngine: Can't find robocode.core-1.x.jar)
+[Bug-408]: http://sourceforge.net/p/robocode/bugs/408/  (Parameter DNOSECURITY (no security manager) cause Robocode program startup access-error)
+[Bug-409]: http://sourceforge.net/p/robocode/bugs/409/  (Robot repository is completely rebuilt whenever dev dir is changed via UI)
+[Bug-410]: http://sourceforge.net/p/robocode/bugs/410/  (setColors methods warn that they can be called only once per battle, but it's not true)
+[Bug-412]: http://sourceforge.net/p/robocode/bugs/412/  (Bug fix 388 breaks score display in robot buttons)
+[Bug-414]:https://sourceforge.net/p/robocode/bugs/414/  (when robots collide they change position, but the bullets are hitting original place in the next turn)
 
 [Req-1]:   http://sourceforge.net/p/robocode/feature-requests/1/    (Multiple or hyperthreading CPUs (most P4s) hangs Robocode)
 [Req-2]:   http://sourceforge.net/p/robocode/feature-requests/2/    (Keep window size of "New battle" window)
@@ -3067,6 +3253,7 @@ Currently, there is one known issue, which will be fixed with the next Beta or i
 [Req-114]: http://sourceforge.net/p/robocode/feature-requests/114/  (RateControlRobot vs. TeamRobot)
 [Req-115]: http://sourceforge.net/p/robocode/feature-requests/115/  (Installed package should contain readme file)
 [Req-118]: http://sourceforge.net/p/robocode/feature-requests/118/  (Enable/disable development paths)
+[Req-119]: http://sourceforge.net/p/robocode/feature-requests/119/  (Provide JuniorRobot template for inexperienced user)
 [Req-121]: http://sourceforge.net/p/robocode/feature-requests/121/  (Issues with editor font)
 [Req-124]: http://sourceforge.net/p/robocode/feature-requests/124/  (Ability to save the properties file for robots in dev. path)
 [Req-128]: http://sourceforge.net/p/robocode/feature-requests/128/  (In battle name hiding)
@@ -3074,5 +3261,7 @@ Currently, there is one known issue, which will be fixed with the next Beta or i
 [Req-134]: http://sourceforge.net/p/robocode/feature-requests/134/  (Calculate codesize after compile in editor)
 [Req-135]: http://sourceforge.net/p/robocode/feature-requests/135/  (Twin Duel configuration files)
 [Req-144]: http://sourceforge.net/p/robocode/feature-requests/144/  (Mac ... start with icon and name)
+[Req-147]: http://sourceforge.net/p/robocode/feature-requests/147/  (The snapshot API is ambiguous for bullets shot by teams)
 [Req-156]: http://sourceforge.net/p/robocode/feature-requests/156/  (Codesize added to properties file)
 [Req-159]: http://sourceforge.net/p/robocode/feature-requests/159/  (Fix overkilled garbage collection on static fields)
+[Req-160]: http://sourceforge.net/p/robocode/feature-requests/160/  (Fixed width font in console)

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode.control;
 
@@ -35,9 +35,9 @@ public class BattlefieldSpecification implements java.io.Serializable {
 	/**
 	 * Creates a battlefield of the specified width and height.
 	 *
-	 * @param width  the width of the battlefield, where 400 <= width <= 5000.
-	 * @param height the height of the battlefield, where 400 <= height <= 5000.
-	 * @throws IllegalArgumentException if the width or height < 400 or > 5000.
+	 * @param width  the width of the battlefield, where 400 &lt;= width &lt;= 5000.
+	 * @param height the height of the battlefield, where 400 &lt;= height &lt;= 5000.
+	 * @throws IllegalArgumentException if the width or height &lt; 400 or &gt; 5000.
 	 */
 	public BattlefieldSpecification(int width, int height) {
 		if (width < 400 || width > 5000) {

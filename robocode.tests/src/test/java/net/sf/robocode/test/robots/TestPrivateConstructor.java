@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.test.robots;
 
@@ -28,7 +28,7 @@ public class TestPrivateConstructor extends RobocodeTestBed {
 
 	public void onTurnEnded(final TurnEndedEvent event) {
 		super.onTurnEnded(event);                          
-		final IRobotSnapshot robot = event.getTurnSnapshot().getRobots()[1];
+		final IRobotSnapshot robot = event.getTurnSnapshot().getRobots()[0];
 
 		if (robot.getOutputStreamSnapshot().contains("SYSTEM: Is your constructor marked public?")) {
 			messaged = true;
@@ -37,8 +37,8 @@ public class TestPrivateConstructor extends RobocodeTestBed {
 	}
 
 	@Override
-	public String getRobotNames() {
-		return "sample.Fire,tested.robots.PrivateConstructor";
+	public String getRobotName() {
+		return "tested.robots.PrivateConstructor";
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.roborumble.netengine;
 
@@ -22,8 +22,9 @@ import java.util.Vector;
  * Class used for uploading results to a server.
  * Controlled by properties files.
  *
- * @author Albert Pérez (original)
+ * @author Albert Perez (original)
  * @author Flemming N. Larsen (contributor)
+ * @author Pavel Savara (contributor)
  */
 public class ResultsUpload {
 
@@ -43,21 +44,15 @@ public class ResultsUpload {
 	private final String teams;
 	private final String melee;
 
-	public ResultsUpload(String propertiesfile, String clientVersion) {
-		// Read parameters
-		Properties parameters = getProperties(propertiesfile);
+	public ResultsUpload(String game, Properties parameters, String clientVersion) {
 
 		resultsfile = parameters.getProperty("OUTPUT", "");
 		resultsurl = parameters.getProperty("RESULTSURL", "");
 		tempdir = parameters.getProperty("TEMP", "");
 		user = parameters.getProperty("USER", "");
-		game = propertiesfile;
+		this.game = game;
 		String botsrepository = parameters.getProperty("BOTSREP", "");
 
-		while (game.indexOf("/") != -1) {
-			game = game.substring(game.indexOf("/") + 1);
-		}
-		game = game.substring(0, game.indexOf("."));
 		sizesfile = parameters.getProperty("CODESIZEFILE", "");
 		minibots = parameters.getProperty("MINIBOTS", "");
 		microbots = parameters.getProperty("MICROBOTS", "");
@@ -180,29 +175,32 @@ public class ResultsUpload {
 
 			String data = "game=" + game + commonData;
 
+			boolean errsaved = false;
+
 			if (matchtype.equals("GENERAL") || matchtype.equals("SERVER")) {
-				errorsfound = errorsfound | senddata(game, data, outtxt, true, results, i, battlesnum, prioritybattles);
+				errsaved = senddata(game, data, outtxt, true, results, i, battlesnum, prioritybattles);
 			}
 
 			if (sizesfile.length() != 0) { // upload also related competitions
 				if (minibots.length() != 0 && !matchtype.equals("NANO") && !matchtype.equals("MICRO")
 						&& size.checkCompetitorsForSize(first[0], second[0], 1500)) {
 					data = "game=" + minibots + commonData;
-					errorsfound = errorsfound
-							| senddata(minibots, data, outtxt, true, results, i, battlesnum, prioritybattles);
+					errsaved = errsaved
+							| senddata(minibots, data, outtxt, !errsaved, results, i, battlesnum, prioritybattles);
 				}
 				if (microbots.length() != 0 && !matchtype.equals("NANO")
 						&& size.checkCompetitorsForSize(first[0], second[0], 750)) {
 					data = "game=" + microbots + commonData;
-					errorsfound = errorsfound
-							| senddata(microbots, data, outtxt, true, results, i, battlesnum, prioritybattles);
+					errsaved = errsaved
+							| senddata(microbots, data, outtxt, !errsaved, results, i, battlesnum, prioritybattles);
 				}
 				if (nanobots.length() != 0 && size.checkCompetitorsForSize(first[0], second[0], 250)) {
 					data = "game=" + nanobots + commonData;
-					errorsfound = errorsfound
-							| senddata(nanobots, data, outtxt, true, results, i, battlesnum, prioritybattles);
+					errsaved = errsaved
+							| senddata(nanobots, data, outtxt, !errsaved, results, i, battlesnum, prioritybattles);
 				}
 			}
+			errorsfound = errorsfound || errsaved;
 		}
 
 		// close files
@@ -245,6 +243,7 @@ public class ResultsUpload {
 		BufferedReader bufferedReader = null;
 
 		try {
+			System.out.println("Uploading results to " + resultsurl + " as " + user);
 			// Send data
 			URLConnection conn = FileTransfer.openOutputURLConnection(new URL(resultsurl));
 

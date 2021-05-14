@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.settings;
 
@@ -192,13 +192,13 @@ public interface ISettingsManager {
 
 	boolean getOptionsCommonEnableAutoRecording();
 
-	boolean getOptionsCommonAutoRecordingXML();
+	String getOptionsCommonRecordingFormat();
 
 	void setOptionsCommonEnableReplayRecording(boolean enable);
 
 	void setOptionsCommonEnableAutoRecording(boolean enable);
 
-	void setOptionsCommonEnableAutoRecordingXML(boolean enable);
+	void setOptionsCommonRecordingFormat(String value);
 
 	void setOptionsCommonNotifyAboutNewBetaVersions(boolean enable);
 
@@ -283,7 +283,7 @@ public interface ISettingsManager {
 			OPTIONS_COMMON_APPEND_WHEN_SAVING_RESULTS = "robocode.options.common.appendWhenSavingResults",
 			OPTIONS_COMMON_ENABLE_REPLAY_RECORDING = "robocode.options.common.enableReplayRecording",
 			OPTIONS_COMMON_ENABLE_AUTO_RECORDING = "robocode.options.common.enableAutoRecording",
-			OPTIONS_COMMON_AUTO_RECORDING_XML = "robocode.options.common.autoRecordingXML",
+			OPTIONS_COMMON_RECORDING_FORMAT = "robocode.options.common.recordingFormat",
 
 			OPTIONS_TEAM_SHOWTEAMROBOTS = "robocode.options.team.showTeamRobots",
 

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package sample;
 
@@ -15,7 +15,7 @@ import java.awt.*;
 
 /**
  * Crazy - a sample robot by Mathew Nelson.
- * <p/>
+ * <p>
  * This robot moves around in a crazy pattern.
  *
  * @author Mathew A. Nelson (original)
@@ -72,7 +72,7 @@ public class Crazy extends AdvancedRobot {
 	}
 
 	/**
-	 * reverseDirection:  Switch from ahead to back & vice versa
+	 * reverseDirection:  Switch from ahead to back &amp; vice versa
 	 */
 	public void reverseDirection() {
 		if (movingForward) {

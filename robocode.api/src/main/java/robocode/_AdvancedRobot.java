@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -14,7 +14,7 @@ import robocode.robotinterfaces.peer.IAdvancedRobotPeer;
 /**
  * This class is used by the system, as well as being a placeholder for all deprecated
  * (meaning, you should not use them) calls for {@link AdvancedRobot}.
- * <p/>
+ * <p>
  * You should create a {@link AdvancedRobot} instead.
  *
  * @see Robot
@@ -33,8 +33,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's gun to the left.
-	 *                If {@code degrees} > 0 the robot's gun is set to turn left.
-	 *                If {@code degrees} < 0 the robot's gun is set to turn right.
+	 *                If {@code degrees} &gt; 0 the robot's gun is set to turn left.
+	 *                If {@code degrees} &lt; 0 the robot's gun is set to turn right.
 	 *                If {@code degrees} = 0 the robot's gun is set to stop turning.
 	 * @deprecated Use {@link AdvancedRobot#setTurnGunLeft(double)
 	 *             setTurnGunLeft} instead.
@@ -50,8 +50,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's gun to the right.
-	 *                If {@code degrees} > 0 the robot's gun is set to turn right.
-	 *                If {@code degrees} < 0 the robot's gun is set to turn left.
+	 *                If {@code degrees} &gt; 0 the robot's gun is set to turn right.
+	 *                If {@code degrees} &lt; 0 the robot's gun is set to turn left.
 	 *                If {@code degrees} = 0 the robot's gun is set to stop turning.
 	 * @deprecated Use {@link AdvancedRobot#setTurnGunRight(double)
 	 *             setTurnGunRight} instead.
@@ -67,8 +67,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's radar to the right.
-	 *                If {@code degrees} > 0 the robot's radar will turn right.
-	 *                If {@code degrees} < 0 the robot's radar will turn left.
+	 *                If {@code degrees} &gt; 0 the robot's radar will turn right.
+	 *                If {@code degrees} &lt; 0 the robot's radar will turn left.
 	 *                If {@code degrees} = 0 the robot's radar will not turn, but execute.
 	 * @deprecated Use {@link Robot#turnRadarRight(double) turnRadarRight}
 	 *             instead.
@@ -80,8 +80,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's body to the right.
-	 *                If {@code degrees} > 0 the robot is set to turn right.
-	 *                If {@code degrees} < 0 the robot is set to turn left.
+	 *                If {@code degrees} &gt; 0 the robot is set to turn right.
+	 *                If {@code degrees} &lt; 0 the robot is set to turn left.
 	 *                If {@code degrees} = 0 the robot is set to stop turning.
 	 * @deprecated Use {@link AdvancedRobot#setTurnRight(double)
 	 *             setTurnRight(double)} instead.
@@ -97,8 +97,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's radar to the left.
-	 *                If {@code degrees} > 0 the robot's radar is set to turn left.
-	 *                If {@code degrees} < 0 the robot's radar is set to turn right.
+	 *                If {@code degrees} &gt; 0 the robot's radar is set to turn left.
+	 *                If {@code degrees} &lt; 0 the robot's radar is set to turn right.
 	 *                If {@code degrees} = 0 the robot's radar is set to stop turning.
 	 * @deprecated Use {@link AdvancedRobot#setTurnRadarLeft(double)
 	 *             setTurnRadarLeft(double)} instead.
@@ -114,8 +114,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's body to the left.
-	 *                If {@code degrees} > 0 the robot is set to turn left.
-	 *                If {@code degrees} < 0 the robot is set to turn right.
+	 *                If {@code degrees} &gt; 0 the robot is set to turn left.
+	 *                If {@code degrees} &lt; 0 the robot is set to turn right.
 	 *                If {@code degrees} = 0 the robot is set to stop turning.
 	 * @deprecated Use {@link AdvancedRobot#setTurnLeft(double)
 	 *             setTurnLeft(double)} instead.
@@ -140,8 +140,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's body to the left.
-	 *                If {@code degrees} > 0 the robot will turn left.
-	 *                If {@code degrees} < 0 the robot will turn right.
+	 *                If {@code degrees} &gt; 0 the robot will turn left.
+	 *                If {@code degrees} &lt; 0 the robot will turn right.
 	 *                If {@code degrees} = 0 the robot will not turn, but execute.
 	 * @deprecated Use {@link Robot#turnLeft(double) turnLeft(double)} instead.
 	 */
@@ -152,8 +152,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's body to the right.
-	 *                If {@code degrees} > 0 the robot will turn right.
-	 *                If {@code degrees} < 0 the robot will turn left.
+	 *                If {@code degrees} &gt; 0 the robot will turn right.
+	 *                If {@code degrees} &lt; 0 the robot will turn left.
 	 *                If {@code degrees} = 0 the robot will not turn, but execute.
 	 * @deprecated Use {@link Robot#turnRight(double) turnRight(double)} instead.
 	 */
@@ -207,8 +207,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's radar to the right.
-	 *                If {@code degrees} > 0 the robot's radar is set to turn right.
-	 *                If {@code degrees} < 0 the robot's radar is set to turn left.
+	 *                If {@code degrees} &gt; 0 the robot's radar is set to turn right.
+	 *                If {@code degrees} &lt; 0 the robot's radar is set to turn left.
 	 *                If {@code degrees} = 0 the robot's radar is set to stop turning.
 	 * @deprecated Use {@link AdvancedRobot#setTurnRadarRight(double)
 	 *             setTurnRadarRight} instead.
@@ -224,8 +224,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's gun to the left.
-	 *                If {@code degrees} > 0 the robot's gun will turn left.
-	 *                If {@code degrees} < 0 the robot's gun will turn right.
+	 *                If {@code degrees} &gt; 0 the robot's gun will turn left.
+	 *                If {@code degrees} &lt; 0 the robot's gun will turn right.
 	 *                If {@code degrees} = 0 the robot's gun will not turn, but execute.
 	 * @deprecated Use {@link Robot#turnGunLeft(double) turnGunLeft} instead.
 	 */
@@ -236,8 +236,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's gun to the right.
-	 *                If {@code degrees} > 0 the robot's gun will turn right.
-	 *                If {@code degrees} < 0 the robot's gun will turn left.
+	 *                If {@code degrees} &gt; 0 the robot's gun will turn right.
+	 *                If {@code degrees} &lt; 0 the robot's gun will turn left.
 	 *                If {@code degrees} = 0 the robot's gun will not turn, but execute.
 	 * @deprecated Use {@link Robot#turnGunRight(double) turnGunRight} instead.
 	 */
@@ -248,8 +248,8 @@ public class _AdvancedRobot extends Robot {
 
 	/**
 	 * @param degrees the amount of degrees to turn the robot's radar to the left.
-	 *                If {@code degrees} > 0 the robot's radar will turn left.
-	 *                If {@code degrees} < 0 the robot's radar will turn right.
+	 *                If {@code degrees} &gt; 0 the robot's radar will turn left.
+	 *                If {@code degrees} &lt; 0 the robot's radar will turn right.
 	 *                If {@code degrees} = 0 the robot's radar will not turn, but execute.
 	 * @deprecated Use {@link Robot#turnRadarLeft(double) turnRadarLeft} instead.
 	 */

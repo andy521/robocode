@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.roborumble.battlesengine;
 
@@ -24,7 +24,7 @@ import net.sf.robocode.repository.CodeSizeCalculator;
  * another file.
  * Controlled by properties files.
  *
- * @author Albert Pérez (original)
+ * @author Albert Perez (original)
  * @author Flemming N. Larsen (contributor)
  */
 public class CompetitionsSelector {
@@ -40,7 +40,7 @@ public class CompetitionsSelector {
 		sizes = getProperties(sizesfile);
 	}
 
-	public boolean checkCompetitorForSize(String botName, long maxSize) {
+	public Boolean checkCompetitorForSize(String botName, long maxSize) {
 		String name = botName.replace(' ', '_');
 
 		// Read sizes
@@ -62,13 +62,17 @@ public class CompetitionsSelector {
 			}
 		}
 
-		// If the file needs update, then save the file
-		if (fileNeedsUpdate && codeSize > 0) {
-			storeProperties(sizes, sizesfile, "Bots code size");
-		}
+		if (codeSize > 0) {
+			// If the file needs update, then save the file
+			if (fileNeedsUpdate) {
+				storeProperties(sizes, sizesfile, "Bots code size");
+			}
 
-		// Check the code size
-		return (codeSize < maxSize); // Bug-362
+			// Check the code size
+			return (codeSize < maxSize); // Bug-362
+		} else {
+			return null;
+		}
 	}
 
 	public boolean checkCompetitorsForSize(String bot1, String bot2, long maxsize) {

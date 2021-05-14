@@ -1,19 +1,16 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.recording;
 
 
 import net.sf.robocode.battle.BattleProperties;
 import net.sf.robocode.security.HiddenAccess;
-import net.sf.robocode.serialization.IXmlSerializable;
-import net.sf.robocode.serialization.SerializableOptions;
-import net.sf.robocode.serialization.XmlReader;
-import net.sf.robocode.serialization.XmlWriter;
+import net.sf.robocode.serialization.*;
 import robocode.BattleResults;
 import robocode.BattleRules;
 
@@ -21,20 +18,22 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
  * @author Pavel Savara (original)
  * @author Flemming N. Larsen (original)
  */
-class BattleRecordInfo implements Serializable, IXmlSerializable {
-	private static final long serialVersionUID = 1L;
+public class BattleRecordInfo implements Serializable, IXmlSerializable {
+	private static final long serialVersionUID = 2L;
 
-	int robotCount;
-	int roundsCount;
-	BattleRules battleRules;
-	Integer[] turnsInRounds;
-	List<BattleResults> results;
+	public int robotCount;
+	public int roundsCount;
+	public BattleRules battleRules;
+	public Integer[] turnsInRounds;
+	public List<BattleResults> results;
+	public UUID battleId;
 
 	public void writeXml(XmlWriter writer, SerializableOptions options) throws IOException {
 		writer.startElement("recordInfo"); {
@@ -163,7 +162,7 @@ class BattleRecordInfo implements Serializable, IXmlSerializable {
 	 *
 	 * @author Flemming N. Larsen (original)
 	 */
-	private class BattleResultsWrapper extends BattleResults implements IXmlSerializable {
+	static class BattleResultsWrapper extends BattleResults implements IXmlSerializable {
 
 		private static final long serialVersionUID = BattleResults.serialVersionUID;
 
@@ -171,7 +170,7 @@ class BattleRecordInfo implements Serializable, IXmlSerializable {
 			super(null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		}
 
-		private BattleResultsWrapper(BattleResults results) {
+		BattleResultsWrapper(BattleResults results) {
 			super(results.getTeamLeaderName(), results.getRank(), results.getScore(), results.getSurvival(),
 					results.getLastSurvivorBonus(), results.getBulletDamage(), results.getBulletDamageBonus(),
 					results.getRamDamage(), results.getRamDamageBonus(), results.getFirsts(), results.getSeconds(),

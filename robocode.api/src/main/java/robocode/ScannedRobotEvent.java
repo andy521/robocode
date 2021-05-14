@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -98,7 +98,7 @@ public class ScannedRobotEvent extends Event {
 
 	/**
 	 * Returns the bearing to the robot you scanned, relative to your robot's
-	 * heading, in degrees (-180 <= getBearing() < 180)
+	 * heading, in degrees (-180 &lt;= getBearing() &lt; 180)
 	 *
 	 * @return the bearing to the robot you scanned, in degrees
 	 */
@@ -108,7 +108,7 @@ public class ScannedRobotEvent extends Event {
 
 	/**
 	 * Returns the bearing to the robot you scanned, relative to your robot's
-	 * heading, in radians (-PI <= getBearingRadians() < PI)
+	 * heading, in radians (-PI &lt;= getBearingRadians() &lt; PI)
 	 *
 	 * @return the bearing to the robot you scanned, in radians
 	 */
@@ -135,7 +135,7 @@ public class ScannedRobotEvent extends Event {
 	}
 
 	/**
-	 * Returns the heading of the robot, in degrees (0 <= getHeading() < 360)
+	 * Returns the heading of the robot, in degrees (0 &lt;= getHeading() &lt; 360)
 	 *
 	 * @return the heading of the robot, in degrees
 	 */
@@ -144,7 +144,7 @@ public class ScannedRobotEvent extends Event {
 	}
 
 	/**
-	 * Returns the heading of the robot, in radians (0 <= getHeading() < 2 * PI)
+	 * Returns the heading of the robot, in radians (0 &lt;= getHeading() &lt; 2 * PI)
 	 *
 	 * @return the heading of the robot, in radians
 	 */

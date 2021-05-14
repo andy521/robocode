@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.battle;
 
@@ -30,6 +30,7 @@ import robocode.control.events.*;
 import robocode.control.events.RoundEndedEvent;
 import robocode.control.snapshot.BulletState;
 import robocode.control.snapshot.ITurnSnapshot;
+import robocode.robotinterfaces.IBasicRobot;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -82,8 +83,7 @@ public final class Battle extends BaseBattle {
 	private RobotSetup[] initialRobotSetups;
 
 	public Battle(ISettingsManager properties, IBattleManager battleManager, IHostManager hostManager, ICpuManager cpuManager, BattleEventDispatcher eventDispatcher) { // NO_UCD (unused code)
-		super(
-				properties, battleManager, eventDispatcher);
+		super(properties, battleManager, eventDispatcher);
 		this.hostManager = hostManager;
 		this.cpuConstant = cpuManager.getCpuConstant();
 	}
@@ -99,117 +99,49 @@ public final class Battle extends BaseBattle {
 	}
 
 	private void createPeers(RobotSpecification[] battlingRobotsList) {
-		// create teams
-		Map<String, Integer> countedNames = new HashMap<String, Integer>();
-		List<String> teams = new ArrayList<String>();
-		List<String> teamDuplicates = new ArrayList<String>();
-		List<Integer> robotDuplicates = new ArrayList<Integer>();
 
-		// count duplicate robots, enumerate teams, enumerate team members
-		for (RobotSpecification specification : battlingRobotsList) {
-			final String name = ((IRobotItem) HiddenAccess.getFileSpecification(specification)).getUniqueFullClassNameWithVersion();
-
-			if (countedNames.containsKey(name)) {
-				int value = countedNames.get(name);
-
-				countedNames.put(name, value == 1 ? 3 : value + 1);
-			} else {
-				countedNames.put(name, 1);
-			}
-
-			String teamFullName = HiddenAccess.getRobotTeamName(specification);
-
-			if (teamFullName != null) {
-				if (!teams.contains(teamFullName)) {
-					teams.add(teamFullName);
-					String teamName = teamFullName.substring(0, teamFullName.length() - 6);
-
-					if (countedNames.containsKey(teamName)) {
-						int value = countedNames.get(teamName);
-
-						countedNames.put(teamName, value == 1 ? 3 : value + 1);
-					} else {
-						countedNames.put(teamName, 1);
-					}
-				}
-			}
-		}
-
+		List<String> teamNames = new ArrayList<String>();
 		Map<String, List<String>> teamMembers = new HashMap<String, List<String>>();
+		Map<RobotSpecification, Integer /* index */> robotIndexes = new HashMap<RobotSpecification, Integer>();
+		Map<String, TeamPeer> teamPeers = new HashMap<String, TeamPeer>();
 
-		// name teams
-		for (int i = teams.size() - 1; i >= 0; i--) {
-			String teamFullName = teams.get(i);
-			String name = teamFullName.substring(0, teamFullName.length() - 6);
-			Integer order = countedNames.get(name);
-			String newTeamName = name;
+		int robotIndex = 0;
+		for (RobotSpecification specification : battlingRobotsList) {
+			robotIndexes.put(specification, robotIndex++);
 
-			if (order > 1) {
-				newTeamName = name + " (" + (order - 1) + ")";
-			}
-			teamDuplicates.add(0, newTeamName);
-			teamMembers.put(teamFullName, new ArrayList<String>());
-			countedNames.put(name, order - 1);
-		}
+			final String name = ((IRobotItem) HiddenAccess.getFileSpecification(specification)).getUniqueFullClassNameWithVersion();
+			String nameAndIndex = name + " (" + robotIndex + ')';
 
-		// name robots
-		for (int i = battlingRobotsList.length - 1; i >= 0; i--) {
-			RobotSpecification specification = battlingRobotsList[i];
-			String name = ((IRobotItem) HiddenAccess.getFileSpecification(specification)).getUniqueFullClassNameWithVersion();
-			Integer order = countedNames.get(name);
-			int duplicate = -1;
-
-			String newName = name;
-
-			if (order > 1) {
-				duplicate = (order - 2);
-				newName = name + " (" + (order - 1) + ")";
-			}
-			countedNames.put(name, (order - 1));
-			robotDuplicates.add(0, duplicate);
-
-			String teamFullName = HiddenAccess.getRobotTeamName(specification);
-
-			if (teamFullName != null) {
-				List<String> members = teamMembers.get(teamFullName);
-
-				members.add(newName);
+			final String teamName = HiddenAccess.getRobotTeamName(specification);
+			if (teamName != null) {
+				if (!teamNames.contains(teamName)) {
+					teamNames.add(teamName);
+					teamMembers.put(teamName, new ArrayList<>());
+				}
+				teamMembers.get(teamName).add(nameAndIndex);
 			}
 		}
-
-		// create teams
-		Map<String, TeamPeer> namedTeams = new HashMap<String, TeamPeer>();
-
-		// create robots
-		for (int i = 0; i < battlingRobotsList.length; i++) {
-			RobotSpecification specification = battlingRobotsList[i];
+		
+		for (RobotSpecification specification : battlingRobotsList) {
+			final String teamName = HiddenAccess.getRobotTeamName(specification);
 			TeamPeer team = null;
+			if (teamName != null) {
+				if (!teamPeers.containsKey(teamName)) {
+					String teamNameIndexed = teamName.substring(0, teamName.length() - 6) + " (" + (teamNames.indexOf(teamName) + 1) + ')';
 
-			String teamFullName = HiddenAccess.getRobotTeamName(specification);
-
-			// The team index and robot index depends on current sizes of the contestant list and robot list
-			int teamIndex = contestants.size();
-			int robotIndex = robots.size();
-
-			if (teamFullName != null) {
-				if (!namedTeams.containsKey(teamFullName)) {
-					String newTeamName = teamDuplicates.get(teams.indexOf(teamFullName));
-
-					team = new TeamPeer(newTeamName, teamMembers.get(teamFullName), teamIndex);
-
-					namedTeams.put(teamFullName, team);
+					int teamIndex = teamNames.indexOf(teamName);
+					team = new TeamPeer(teamNameIndexed, teamMembers.get(teamName), teamIndex);
+	
+					teamPeers.put(teamName, team);
 					contestants.add(team);
-
 				} else {
-					team = namedTeams.get(teamFullName);
-					if (team != null) {
-						teamIndex = team.getTeamIndex();
-					}
+					team = teamPeers.get(teamName);
 				}
 			}
-			Integer duplicate = robotDuplicates.get(i);
-			RobotPeer robotPeer = new RobotPeer(this, hostManager, specification, duplicate, team, robotIndex);
 
+			robotIndex = robotIndexes.get(specification);
+
+			RobotPeer robotPeer = new RobotPeer(this, hostManager, specification, team, robotIndex);
 			robots.add(robotPeer);
 			if (team == null) {
 				contestants.add(robotPeer);
@@ -347,7 +279,7 @@ public final class Battle extends BaseBattle {
 		}
 
 		if (getRoundNum() == 0) {
-			eventDispatcher.onBattleStarted(new BattleStartedEvent(battleRules, robots.size(), false));
+			eventDispatcher.onBattleStarted(new BattleStartedEvent(battleRules, robots.size(), false, UUID.randomUUID()));
 			if (isPaused) {
 				eventDispatcher.onBattlePaused(new BattlePausedEvent());
 			}
@@ -381,11 +313,18 @@ public final class Battle extends BaseBattle {
 			robotPeer.startRound(waitMillis, waitNanos);
 		}
 
+		List<IBasicRobot> robotObjects = null;
+		if (RobocodeProperties.isTestingOn() && RobocodeProperties.isSecurityOff()) {
+			robotObjects = new ArrayList<>();
+			for (RobotPeer robotPeer : robots) {
+				robotObjects.add(robotPeer.getRobotObject());
+			}
+		}
+
 		Logger.logMessage(""); // puts in a new-line in the log message
 
 		final ITurnSnapshot snapshot = new TurnSnapshot(this, robots, bullets, false);
-
-		eventDispatcher.onRoundStarted(new RoundStartedEvent(snapshot, getRoundNum()));
+		eventDispatcher.onRoundStarted(new RoundStartedEvent(snapshot, getRoundNum(), robotObjects));
 	}
 
 	@Override
@@ -586,6 +525,11 @@ public final class Battle extends BaseBattle {
 		// Move all bots
 		for (RobotPeer robotPeer : getRobotsAtRandom()) {
 			robotPeer.performMove(getRobotsAtRandom(), zapEnergy);
+		}
+
+		// Correct bounding box after collisions
+		for (RobotPeer robotPeer : robots) {
+			robotPeer.updateAfterCollision();
 		}
 
 		// Scan after moved all

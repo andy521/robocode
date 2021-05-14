@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -53,7 +53,7 @@ public final class HitRobotEvent extends Event {
 
 	/**
 	 * Returns the bearing to the robot you hit, relative to your robot's
-	 * heading, in degrees (-180 <= getBearing() < 180)
+	 * heading, in degrees (-180 &lt;= getBearing() &lt; 180)
 	 *
 	 * @return the bearing to the robot you hit, in degrees
 	 */
@@ -72,7 +72,7 @@ public final class HitRobotEvent extends Event {
 
 	/**
 	 * Returns the bearing to the robot you hit, relative to your robot's
-	 * heading, in radians (-PI <= getBearingRadians() < PI)
+	 * heading, in radians (-PI &lt;= getBearingRadians() &lt; PI)
 	 *
 	 * @return the bearing to the robot you hit, in radians
 	 */
@@ -109,10 +109,10 @@ public final class HitRobotEvent extends Event {
 
 	/**
 	 * Checks if your robot was moving towards the robot that was hit.
-	 * <p/>
+	 * <p>
 	 * If {@link #isMyFault()} returns {@code true} then your robot's movement
 	 * (including turning) will have stopped and been marked complete.
-	 * <p/>
+	 * <p>
 	 * Note: If two robots are moving toward each other and collide, they will
 	 * each receive two HitRobotEvents. The first will be the one if
 	 * {@link #isMyFault()} returns {@code true}.

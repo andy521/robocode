@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 // NOTE: JarJarURLStreamHandler is just tweaked version of jar handler from OpenJDK.
 
@@ -93,7 +93,6 @@ public class JarJarURLConnection extends URLConnection {
 			return -1;
 		}
 
-		@SuppressWarnings({ "deprecation"})
 		protected void parseURL(URL url, String spec,
 				int start, int limit) {
 			String file = null;
@@ -132,7 +131,7 @@ public class JarJarURLConnection extends URLConnection {
 				file = toBangSlash + afterBangSlash;
 			}
 			file = file != null ? "jar:" + file.replaceFirst("\\" + SEPARATOR, "!/") : null;
-			setURL(url, "jarjar", "", -1, file, ref);
+			setURL(url, "jarjar", "", -1, null, null, file, null, ref);
 		}
 
 		private String parseAbsoluteSpec(String spec) {

@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package robocode;
 
@@ -17,9 +17,9 @@ import java.io.IOException;
  * RobocodeFileWriter is similar to a {@link java.io.FileWriter} and is used for
  * writing data out to a file, which you got by calling {@link
  * AdvancedRobot#getDataFile(String) getDataFile()}.
- * <p/>
+ * <p>
  * You should read {@link java.io.FileWriter} for documentation of this class.
- * <p/>
+ * <p>
  * Please notice that the max. size of your data file is set to 200000
  * (~195 KB).
  *
@@ -29,6 +29,7 @@ import java.io.IOException;
  * @author Mathew A. Nelson (original)
  * @author Flemming N. Larsen (contributor)
  */
+@SuppressWarnings("deprecation")
 public class RobocodeFileWriter extends java.io.OutputStreamWriter {
 
 	/**

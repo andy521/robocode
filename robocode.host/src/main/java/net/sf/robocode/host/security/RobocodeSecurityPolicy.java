@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.host.security;
 
@@ -167,8 +167,12 @@ public class RobocodeSecurityPolicy extends Policy {
 		}
 
 		// check package access
-		if (perm instanceof RuntimePermission && name.startsWith("accessClassInPackage.")) {
-			return impliesRobotPackageAccess(robotProxy, name.substring(21));
+		if (perm instanceof RuntimePermission) {
+			if (name.startsWith("accessClassInPackage.")) {
+				return impliesRobotPackageAccess(robotProxy, name.substring(21));
+			} else if (name.equals("accessDeclaredMembers")) {
+				return true;
+			}
 		}
 
 		// Permission denied.

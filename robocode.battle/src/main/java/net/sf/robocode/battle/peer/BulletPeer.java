@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.battle.peer;
 
@@ -11,6 +11,7 @@ package net.sf.robocode.battle.peer;
 import net.sf.robocode.peer.BulletStatus;
 import robocode.*;
 import robocode.control.snapshot.BulletState;
+import robocode.util.Utils;
 
 import java.awt.geom.Line2D;
 import static java.lang.Math.cos;
@@ -73,7 +74,7 @@ public class BulletPeer {
 
 	private void checkBulletCollision(List<BulletPeer> bullets) {
 		for (BulletPeer b : bullets) {
-			if (b != null && b != this && b.isActive() && intersect(b.boundingLine)) {
+			if (b != null && b != this && b.owner != owner && b.isActive() && intersect(b.boundingLine)) {
 				// Check if one of the bullets belongs to a sentry robot and is within the safe zone
 				if (owner.isSentryRobot() || b.getOwner().isSentryRobot()) {
 					int sentryBorderSize = battleRules.getSentryBorderSize();
@@ -366,7 +367,9 @@ public class BulletPeer {
 
 	@Override
 	public String toString() {
-		return getOwner().getName() + " V" + getVelocity() + " *" + (int) power + " X" + (int) x + " Y" + (int) y + " H"
-				+ heading + " " + state.toString();
+		return getOwner().getName() + " V" + getVelocity() + " *" + (int) power + " X" + (int) x + " Y" + (int) y
+				+ " H"+ heading
+				+ " ~" + Utils.angleToApproximateDirection(heading)
+				+ " " + state.toString();
 	}
 }

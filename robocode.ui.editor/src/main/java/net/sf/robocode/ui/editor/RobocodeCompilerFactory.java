@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
+ * Copyright (c) 2001-2021 Mathew A. Nelson and Robocode contributors
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
+ * https://robocode.sourceforge.io/license/epl-v10.html
  */
 package net.sf.robocode.ui.editor;
 
@@ -16,6 +16,7 @@ import static net.sf.robocode.io.Logger.logError;
 import static net.sf.robocode.io.Logger.logMessage;
 import net.sf.robocode.ui.dialog.ConsoleDialog;
 import net.sf.robocode.ui.dialog.WindowUtil;
+import net.sf.robocode.util.JavaVersion;
 
 import javax.swing.*;
 import java.io.*;
@@ -26,10 +27,6 @@ import java.io.*;
  * @author Flemming N. Larsen (contributor)
  */
 public class RobocodeCompilerFactory {
-
-	private static final String COMPILER_CLASSPATH = "-classpath " + getJavaLib() + File.pathSeparator + "libs"
-			+ File.separator + "robocode.jar" + File.pathSeparator
-			+ FileUtil.quoteFileName(FileUtil.getRobotsDir().toString());
 
 	private CompilerProperties compilerProperties;
 
@@ -78,6 +75,20 @@ public class RobocodeCompilerFactory {
 		return compilerProperties;
 	}
 
+	private static String getClassPath() {
+		StringBuilder sb = new StringBuilder("-classpath ");
+
+		if (JavaVersion.getJavaMajorVersion() < 9) {
+			// rt.jar is not supported by Java 9+ anymore
+			sb.append(getJavaLib()).append(File.pathSeparator);
+		}
+		sb.append("libs").append(File.separator);
+		sb.append("robocode.jar").append(File.pathSeparator);
+		sb.append(FileUtil.quoteFileName(FileUtil.getRobotsDir().toString()));
+
+		return sb.toString();
+	}
+	
 	private static String getJavaLib() {
 		String javahome = System.getProperty("java.home");
 		String javalib;
@@ -103,7 +114,7 @@ public class RobocodeCompilerFactory {
 
 		String compilerName = "Java Compiler (javac)";
 		String compilerBinary = "javac";
-		String compilerOptions = "-deprecation -g -source 1.6 -encoding UTF-8";
+		String compilerOptions = "-verbose -encoding UTF-8";
 
 		boolean javacOK = testCompiler(compilerName, compilerBinary, console);
 		boolean ecjOK = false;
@@ -123,7 +134,7 @@ public class RobocodeCompilerFactory {
 		
 		if (!javacOK) {
 			compilerName = "Eclipse Compiler for Java (ECJ)";
-			compilerBinary = "java -cp compilers/ecj.jar org.eclipse.jdt.internal.compiler.batch.Main";
+			compilerBinary = "java -cp compilers/* org.eclipse.jdt.internal.compiler.batch.Main";
 
 			ecjOK = testCompiler("Eclipse Compiler for Java (ECJ)", compilerBinary, console);
 		}
@@ -137,7 +148,7 @@ public class RobocodeCompilerFactory {
 			final String errorText = "Could not set up a working compiler for Robocode.\n"
 					+ "Please consult the console window for errors.\n\n"
 					+ "For help with this, please post to Help forum here:\n"
-					+ "http://sourceforge.net/projects/robocode/forums/forum/116459";
+					+ "https://sourceforge.net/p/robocode/discussion/116459/";
 			
 			console.append("\nUnable to set up a working compiler for Robocode.\n");
 
@@ -150,7 +161,7 @@ public class RobocodeCompilerFactory {
 		getCompilerProperties().setRobocodeVersion(ContainerBase.getComponent(IVersionManagerBase.class).getVersion());
 		getCompilerProperties().setCompilerBinary(compilerBinary);
 		getCompilerProperties().setCompilerOptions(compilerOptions);
-		getCompilerProperties().setCompilerClasspath(COMPILER_CLASSPATH);
+		getCompilerProperties().setCompilerClasspath(getClassPath());
 		saveCompilerProperties();
 
 		console.scrollToBottom();
